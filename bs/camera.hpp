@@ -6,7 +6,6 @@
 */
 
 #pragma once
-#include "Point.hpp"
 #include "Vector.hpp"
 
 class Rectangle3D {

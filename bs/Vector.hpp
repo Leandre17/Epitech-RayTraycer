@@ -7,7 +7,6 @@
 
 #pragma once
 #include <cmath>
-#include "Point.hpp"
 
 namespace Math {
     class Point3D;
@@ -53,8 +52,8 @@ namespace Math {
             Point3D &operator=(const Point3D &) = default;
             ~Point3D() = default;
             Point3D operator+(Vector3D);
-            // Point3D operator+=(Point3D);
             Point3D operator-(Point3D);
+            // Point3D operator+=(Point3D);
             // Point3D operator-=(Point3D);
             // Point3D operator*(Point3D);
             // Point3D operator*=(Point3D);
@@ -64,6 +63,7 @@ namespace Math {
             // Point3D operator*=(double o);
             // Point3D operator/(double o);
             // Point3D operator/=(double o);
+            double length();
             double X;
             double Y;
             double Z;

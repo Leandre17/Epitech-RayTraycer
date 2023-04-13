@@ -6,7 +6,7 @@
 */
 
 #pragma once
-#include "Point.hpp"
+#include "Vector.hpp"
 #include "camera.hpp"
 #include <iostream>
 
@@ -35,15 +35,34 @@ namespace RayTracer {
             double radius;
     };
     Sphere::Sphere(Math::Point3D point, double radius): center{point}, radius{radius} {}
-    bool Sphere::hits(RayTracer::Ray rayon) {
-        double a = std::pow(rayon.direction.X, 2) + std::pow(rayon.direction.Y, 2) + std::pow(rayon.direction.Z, 2);
-        double b = 2*rayon.origin.X*rayon.direction.X+2*rayon.origin.Y*rayon.direction.Y+2*rayon.origin.Z*rayon.direction.Z;
-        double c = std::pow(rayon.origin.X, 2) + std::pow(rayon.origin.Y, 2) + std::pow(rayon.origin.Z, 2) - std::pow(this->radius, 2);
+    // bool Sphere::hits(RayTracer::Ray rayon) {
+    //     double a = std::pow(rayon.direction.X, 2) + std::pow(rayon.direction.Y, 2) + std::pow(rayon.direction.Z, 2);
+    //     double b = 2*rayon.origin.X*rayon.direction.X+2*rayon.origin.Y*rayon.direction.Y+2*rayon.origin.Z*rayon.direction.Z;
+    //     double c = std::pow(rayon.origin.X, 2) + std::pow(rayon.origin.Y, 2) + std::pow(rayon.origin.Z, 2) - std::pow(this->radius, 2);
 
-        double d = std::pow(b, 2) - 4*a*c;
-        std::cout << "rayon direction : " << rayon.direction.X << ", " << rayon.direction.Y << ", " << rayon.direction.Z << "\n";
-        std::cout << "a, b, c : " << a << ", " << b << ", " << c << "\n";
-        if (d >= 0) {
+    //     double d = std::pow(b, 2) - 4*a*c;
+    //     // std::cout << "rayon direction : " << rayon.direction.X << ", " << rayon.direction.Y << ", " << rayon.direction.Z << "\n";
+    //     // std::cout << "a, b, c : " << a << ", " << b << ", " << c << "\n";
+    //     if (d >= 0) {
+    //         return true;
+    //     } else {
+    //         return false;
+    //     }
+    // }
+    double dot(Math::Vector3D a, Math::Vector3D b) {
+        return a.X * b.X + a.Y * b.Y + a.Z * b.Z;
+    }
+    bool Sphere::hits(RayTracer::Ray ray) {
+        // Calcul des coefficients de l'équation du second degré
+        double a = ray.direction.length() * ray.direction.length();
+        double b = 2 * dot(ray.direction, ray.origin - center);
+        double c = ((ray.origin - center).length() * (ray.origin - center).length()) - radius * radius;
+
+        // Calcul du discriminant
+        double discriminant = std::pow(b, 2) - 4 * a * c;
+
+        // Si le discriminant est positif, il y a une intersection
+        if (discriminant >= 0) {
             return true;
         } else {
             return false;
@@ -65,8 +84,8 @@ namespace RayTracer {
     };
     Ray Camera::ray(double u ,double v) {
         Ray tmp{};
-        tmp.origin = screen.pointAt(u, v);
-        tmp.direction = tmp.origin;
+        tmp.origin = this->origin;
+        tmp.direction = screen.pointAt(u, v);
         return tmp;
     }
 }
