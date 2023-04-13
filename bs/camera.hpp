@@ -5,6 +5,7 @@
 ** RayTracer
 */
 
+#pragma once
 #include "Point.hpp"
 #include "Vector.hpp"
 
@@ -17,7 +18,7 @@ class Rectangle3D {
         Rectangle3D &operator=(Rectangle3D &&) = default;
         Rectangle3D &operator=(const Rectangle3D &) = default;
         ~Rectangle3D() = default;
-        Math::Point3D Rectangle3D::pointAt(double u, double v);
+        Math::Point3D pointAt(double u, double v);
     private:
         Math::Point3D origin;
         Math::Vector3D bottom_side;

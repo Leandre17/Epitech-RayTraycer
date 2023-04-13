@@ -11,6 +11,17 @@ using namespace Math;
 Vector3D::Vector3D() : X{0}, Y{0}, Z{0} {}
 Vector3D::Vector3D(double x, double y, double z) : X{x}, Y{y}, Z{z} {}
 
+Vector3D::Vector3D(const Point3D &o) {
+    this->X = o.X;
+    this->Y = o.Y;
+    this->Z = o.Z;
+}
+Vector3D Vector3D::operator=(const Point3D &o) {
+    this->X = o.X;
+    this->Y = o.Y;
+    this->Z = o.Z;
+    return (Vector3D){o.X, o.Y, o.Z};
+}
 
 double Vector3D::length() {
     double distance_care = std::pow(X, 2) + std::pow(Y, 2) + std::pow(Z, 2);
