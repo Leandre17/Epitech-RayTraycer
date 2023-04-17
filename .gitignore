@@ -38,3 +38,5 @@ coding-style-reports.log
 .mega*
 vgcore*
 .gdb_history
+
+output.ppm
