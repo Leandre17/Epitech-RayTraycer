@@ -11,6 +11,6 @@ Rectangle3D::Rectangle3D(Math::Point3D origin, Math::Vector3D bottom_side, Math:
     : left_side{left_side}, bottom_side{bottom_side}, origin{origin} {}
 
 Math::Point3D Rectangle3D::pointAt(double u, double v) {
-    Math::Point3D result{u, v, 0};
+    Math::Point3D result{u, v, 1};
     return result;
 }
