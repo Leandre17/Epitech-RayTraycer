@@ -53,15 +53,12 @@ namespace RayTracer {
         return a.X * b.X + a.Y * b.Y + a.Z * b.Z;
     }
     bool Sphere::hits(RayTracer::Ray ray) {
-        // Calcul des coefficients de l'équation du second degré
-        double a = ray.direction.length() * ray.direction.length();
+        double a = std::pow(ray.direction.length(), 2);
         double b = 2 * dot(ray.direction, ray.origin - center);
-        double c = ((ray.origin - center).length() * (ray.origin - center).length()) - radius * radius;
+        double c = std::pow((ray.origin - center).length(), 2) - std::pow(radius, 2);
 
-        // Calcul du discriminant
         double discriminant = std::pow(b, 2) - 4 * a * c;
 
-        // Si le discriminant est positif, il y a une intersection
         if (discriminant >= 0) {
             return true;
         } else {
