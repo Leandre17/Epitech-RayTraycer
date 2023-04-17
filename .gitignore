@@ -40,3 +40,4 @@ vgcore*
 .gdb_history
 
 output.ppm
+raytracer

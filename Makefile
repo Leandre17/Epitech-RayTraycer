@@ -8,7 +8,9 @@
 SRC =	src/main.cpp \
 	src/Point.cpp	\
 	src/Vector.cpp	\
-	src/camera.cpp
+	src/Camera.cpp	\
+	src/Transformations.cpp \
+	src/Primitives.cpp \
 
 NAME = raytracer
 

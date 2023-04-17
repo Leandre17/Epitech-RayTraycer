@@ -8,21 +8,20 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <iostream>
-#include "RayTracer.hpp"
-#include "Vector.hpp"
-#include "camera.hpp"
+#include "Primitives.hpp"
 
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(500, 500), "raytracer");
     std::vector<sf::RectangleShape> rects;
-    RayTracer::Camera cam{{Math::Point3D(-.5, -.5, -1)}, {}};
+    RayTracer::Camera cam{{Math::Point3D(0, 0, -1)}, {}};
     RayTracer::Sphere s(Math::Point3D(0, 0, 0), 0.5);
-    for ( double y = 0; y <= 1; y += .002) {
-        for (double x = 0; x <= 1; x += .002) {
+    s.translate({1, 1, 0});
+    for ( double y = 0; y <= 2; y += .004) {
+        for (double x = 0; x <= 2; x += .004) {
             sf::RectangleShape rectangle;
             rectangle.setSize(sf::Vector2f(1, 1));
-            rectangle.setPosition(x * 500, 500 - y * 500);
+            rectangle.setPosition((x / 2) * 500, 500 - (y / 2) * 500);
             double u = x;
             double v = y;
             RayTracer::Ray r = cam.ray(u, v);
