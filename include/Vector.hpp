@@ -41,7 +41,6 @@ namespace Math {
             double Y;
             double Z;
     };
-
     class Point3D {
         public:
             Point3D();
@@ -53,16 +52,6 @@ namespace Math {
             ~Point3D() = default;
             Point3D operator+(Vector3D);
             Point3D operator-(Point3D);
-            // Point3D operator+=(Point3D);
-            // Point3D operator-=(Point3D);
-            // Point3D operator*(Point3D);
-            // Point3D operator*=(Point3D);
-            // Point3D operator/(Point3D);
-            // Point3D operator/=(Point3D);
-            // Point3D operator*(double o);
-            // Point3D operator*=(double o);
-            // Point3D operator/(double o);
-            // Point3D operator/=(double o);
             double length();
             double X;
             double Y;
