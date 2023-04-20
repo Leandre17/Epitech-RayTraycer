@@ -11,3 +11,8 @@ void RayTracer::Sphere::translate(Math::Vector3D translate)
 {
     this->center += translate;
 }
+
+void RayTracer::Sphere::rotate(double angle, Math::Vector3D axis)
+{
+    center = Math::rotate(center, angle, axis);
+}
