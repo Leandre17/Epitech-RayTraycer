@@ -28,10 +28,10 @@ int main(int argc, char **argv)
     }
     sf::RenderWindow window(sf::VideoMode(500, 500), "raytracer");
     std::vector<sf::RectangleShape> rects;
-    RayTracer::Camera cam{{Math::Point3D(0, 0, 3)}, {}};
+    RayTracer::Camera cam{{Math::Point3D(0.5, 0.5, 3)}, {}};
     RayTracer::Sphere s(Math::Point3D(0, 0, 1), 0.5);
 
-    window.setFramerateLimit(60);
+    window.setFramerateLimit(1);
 
     while (window.isOpen()) {
         sf::Event event;
