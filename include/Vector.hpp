@@ -6,7 +6,11 @@
 */
 
 #pragma once
+#include <iostream>
 #include <cmath>
+#include <vector>
+#include <memory>
+#include <algorithm>
 
 namespace Math {
     class Point3D;
@@ -47,6 +51,13 @@ namespace Math {
             Point3D(double x, double y, double z);
             Point3D(Point3D &&) = default;
             Point3D(const Point3D &) = default;
+            Point3D(const Vector3D &o) : X{o.X}, Y{o.Y}, Z{o.Z} {};
+            Point3D &operator=(const Vector3D &o) {
+                this->X = o.X;
+                this->Y = o.Y;
+                this->Z = o.Z;
+                return (Point3D){o.X, o.Y, o.Z};
+            };
             Point3D &operator=(Point3D &&) = default;
             Point3D &operator=(const Point3D &) = default;
             ~Point3D() = default;
@@ -62,3 +73,5 @@ namespace Math {
             double Z;
     };
 }
+
+double dot(Math::Vector3D a, Math::Vector3D b);

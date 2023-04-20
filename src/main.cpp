@@ -13,6 +13,7 @@
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <iostream>
 #include "Primitives.hpp"
+#include "Light.hpp"
 
 static void help(void)
 {
@@ -31,6 +32,9 @@ int main(int argc, char **argv)
     RayTracer::Camera cam{{Math::Point3D(0.5, 0.5, 3)}, {}};
     RayTracer::Sphere s(Math::Point3D(0, 0, 1), 0.5);
 
+    std::vector<std::unique_ptr<RayTracer::Sphere>> vtc_ptr;
+    std::unique_ptr<Light> lights;
+    vtc_ptr.push_back(std::make_unique<RayTracer::Sphere>(s));
     window.setFramerateLimit(1);
 
     while (window.isOpen()) {
@@ -76,7 +80,10 @@ int main(int argc, char **argv)
                 double v = y;
                 RayTracer::Ray r = cam.ray(u, v);
                 if (s.hits(r)) {
-                    rectangle.setFillColor(sf::Color::Red);
+                    if (castRay(r.origin, r.direction, vtc_ptr, lights) == true)
+                        rectangle.setFillColor(sf::Color::Black);
+                    else
+                        rectangle.setFillColor(sf::Color::Red);
                 } else {
                     rectangle.setFillColor(sf::Color::Blue);
                 }
