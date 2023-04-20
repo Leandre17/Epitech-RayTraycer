@@ -54,6 +54,9 @@ namespace Math {
             Point3D operator+=(Vector3D);
             Point3D operator-(Point3D);
             double length();
+            Vector3D to_vector() const {
+                return Vector3D(X, Y, Z);
+            }
             double X;
             double Y;
             double Z;
