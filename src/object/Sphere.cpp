@@ -9,13 +9,13 @@
 #include <cmath>
 
 // Function to test for intersections.
-bool RayTracer::Sphere::TestIntersection(const RayTracer::Ray &castRay, qbVector<double> &intPoint,
-                                         qbVector<double> &localNormal, qbVector<double> &localColor) {
+bool RayTracer::Sphere::TestIntersection(const RayTracer::Ray &castRay, Vector3D &intPoint,
+                                         Vector3D &localNormal, Vector3D &localColor) {
     // Copy the ray and apply the backwards transform.
     RayTracer::Ray bckRay = m_transformMatrix.Apply(castRay, RayTracer::BACKWARD);
 
     // Compute the values of a, b and c.
-    qbVector<double> vhat = bckRay.m_lab;
+    Vector3D vhat = bckRay.m_lab;
     vhat.Normalize();
 
     /* Note that a is equal to the squared magnitude of the
@@ -24,15 +24,15 @@ bool RayTracer::Sphere::TestIntersection(const RayTracer::Ray &castRay, qbVector
     // a = 1.0;
 
     // Calculate b.
-    double b = 2.0 * qbVector<double>::dot(bckRay.m_point1, vhat);
+    double b = 2.0 * Vector3D::dot(bckRay.m_point1, vhat);
 
     // Calculate c.
-    double c = qbVector<double>::dot(bckRay.m_point1, bckRay.m_point1) - 1.0;
+    double c = Vector3D::dot(bckRay.m_point1, bckRay.m_point1) - 1.0;
 
     // Test whether we actually have an intersection.
     double intTest = (b * b) - 4.0 * c;
 
-    qbVector<double> poi;
+    Vector3D poi;
     if (intTest > 0.0) {
         double numSQRT = sqrtf(intTest);
         double t1 = (-b + numSQRT) / 2.0;
@@ -54,8 +54,8 @@ bool RayTracer::Sphere::TestIntersection(const RayTracer::Ray &castRay, qbVector
             intPoint = m_transformMatrix.Apply(poi, RayTracer::FORWARD);
 
             // Compute the local normal (easy for a sphere at the origin!).
-            qbVector<double> objOrigin = qbVector<double>{std::vector<double>{0.0, 0.0, 0.0}};
-            qbVector<double> newObjOrigin = m_transformMatrix.Apply(objOrigin, RayTracer::FORWARD);
+            Vector3D objOrigin = Vector3D{std::vector<double>{0.0, 0.0, 0.0}};
+            Vector3D newObjOrigin = m_transformMatrix.Apply(objOrigin, RayTracer::FORWARD);
             localNormal = intPoint - newObjOrigin;
             localNormal.Normalize();
 

@@ -10,9 +10,9 @@
 // The constructor.
 RayTracer::Scene::Scene() {
     // Configure the camera.
-    m_camera.SetPosition(qbVector<double>{std::vector<double>{0.0, -10.0, -2.0}});
-    m_camera.SetLookAt(qbVector<double>{std::vector<double>{0.0, 0.0, 0.0}});
-    m_camera.SetUp(qbVector<double>{std::vector<double>{0.0, 0.0, 1.0}});
+    m_camera.SetPosition(Vector3D{std::vector<double>{0.0, -10.0, -2.0}});
+    m_camera.SetLookAt(Vector3D{std::vector<double>{0.0, 0.0, 0.0}});
+    m_camera.SetUp(Vector3D{std::vector<double>{0.0, 0.0, 1.0}});
     m_camera.SetHorzSize(0.25);
     m_camera.SetAspect(16.0 / 9.0);
     m_camera.UpdateCameraGeometry();
@@ -24,49 +24,49 @@ RayTracer::Scene::Scene() {
 
     // Construct a test plane.
     m_objectList.push_back(std::make_unique<RayTracer::Plane>(RayTracer::Plane()));
-    m_objectList.at(3)->m_baseColor = qbVector<double>{std::vector<double>{0.5, 0.5, 0.5}};
+    m_objectList.at(3)->m_baseColor = Vector3D{std::vector<double>{0.5, 0.5, 0.5}};
 
     // Define a transform for the plane.
     RayTracer::GTform planeMatrix;
-    planeMatrix.SetTransform(qbVector<double>{std::vector<double>{0.0, 0.0, 0.75}},
-                             qbVector<double>{std::vector<double>{0.0, 0.0, 0.0}},
-                             qbVector<double>{std::vector<double>{4.0, 4.0, 1.0}});
+    planeMatrix.SetTransform(Vector3D{std::vector<double>{0.0, 0.0, 0.75}},
+                             Vector3D{std::vector<double>{0.0, 0.0, 0.0}},
+                             Vector3D{std::vector<double>{4.0, 4.0, 1.0}});
     m_objectList.at(3)->SetTransformMatrix(planeMatrix);
 
     // Modify the spheres.
     RayTracer::GTform testMatrix1, testMatrix2, testMatrix3;
-    testMatrix1.SetTransform(qbVector<double>{std::vector<double>{-1.5, 0.0, 0.0}},
-                             qbVector<double>{std::vector<double>{0.0, 0.0, 0.0}},
-                             qbVector<double>{std::vector<double>{0.5, 0.5, 0.75}});
+    testMatrix1.SetTransform(Vector3D{std::vector<double>{-1.5, 0.0, 0.0}},
+                             Vector3D{std::vector<double>{0.0, 0.0, 0.0}},
+                             Vector3D{std::vector<double>{0.5, 0.5, 0.75}});
 
-    testMatrix2.SetTransform(qbVector<double>{std::vector<double>{0.0, 0.0, 0.0}},
-                             qbVector<double>{std::vector<double>{0.0, 0.0, 0.0}},
-                             qbVector<double>{std::vector<double>{0.75, 0.5, 0.5}});
+    testMatrix2.SetTransform(Vector3D{std::vector<double>{0.0, 0.0, 0.0}},
+                             Vector3D{std::vector<double>{0.0, 0.0, 0.0}},
+                             Vector3D{std::vector<double>{0.75, 0.5, 0.5}});
 
-    testMatrix3.SetTransform(qbVector<double>{std::vector<double>{1.5, 0.0, 0.0}},
-                             qbVector<double>{std::vector<double>{0.0, 0.0, 0.0}},
-                             qbVector<double>{std::vector<double>{0.75, 0.75, 0.75}});
+    testMatrix3.SetTransform(Vector3D{std::vector<double>{1.5, 0.0, 0.0}},
+                             Vector3D{std::vector<double>{0.0, 0.0, 0.0}},
+                             Vector3D{std::vector<double>{0.75, 0.75, 0.75}});
 
     m_objectList.at(0)->SetTransformMatrix(testMatrix1);
     m_objectList.at(1)->SetTransformMatrix(testMatrix2);
     m_objectList.at(2)->SetTransformMatrix(testMatrix3);
 
-    m_objectList.at(0)->m_baseColor = qbVector<double>{std::vector<double>{0.25, 0.5, 0.8}};
-    m_objectList.at(1)->m_baseColor = qbVector<double>{std::vector<double>{1.0, 0.5, 0.0}};
-    m_objectList.at(2)->m_baseColor = qbVector<double>{std::vector<double>{1.0, 0.8, 0.0}};
+    m_objectList.at(0)->m_baseColor = Vector3D{std::vector<double>{0.25, 0.5, 0.8}};
+    m_objectList.at(1)->m_baseColor = Vector3D{std::vector<double>{1.0, 0.5, 0.0}};
+    m_objectList.at(2)->m_baseColor = Vector3D{std::vector<double>{1.0, 0.8, 0.0}};
 
     // Construct a test light.
     m_lightList.push_back(std::make_unique<RayTracer::PointLight>(RayTracer::PointLight()));
-    m_lightList.at(0)->m_location = qbVector<double>{std::vector<double>{5.0, -10.0, -5.0}};
-    m_lightList.at(0)->m_color = qbVector<double>{std::vector<double>{0.0, 0.0, 1.0}};
+    m_lightList.at(0)->m_location = Vector3D{std::vector<double>{5.0, -10.0, -5.0}};
+    m_lightList.at(0)->m_color = Vector3D{std::vector<double>{0.0, 0.0, 1.0}};
 
     m_lightList.push_back(std::make_unique<RayTracer::PointLight>(RayTracer::PointLight()));
-    m_lightList.at(1)->m_location = qbVector<double>{std::vector<double>{-5.0, -10.0, -5.0}};
-    m_lightList.at(1)->m_color = qbVector<double>{std::vector<double>{1.0, 0.0, 0.0}};
+    m_lightList.at(1)->m_location = Vector3D{std::vector<double>{-5.0, -10.0, -5.0}};
+    m_lightList.at(1)->m_color = Vector3D{std::vector<double>{1.0, 0.0, 0.0}};
 
     m_lightList.push_back(std::make_unique<RayTracer::PointLight>(RayTracer::PointLight()));
-    m_lightList.at(2)->m_location = qbVector<double>{std::vector<double>{0.0, -10.0, -5.0}};
-    m_lightList.at(2)->m_color = qbVector<double>{std::vector<double>{0.0, 1.0, 0.0}};
+    m_lightList.at(2)->m_location = Vector3D{std::vector<double>{0.0, -10.0, -5.0}};
+    m_lightList.at(2)->m_color = Vector3D{std::vector<double>{0.0, 1.0, 0.0}};
 }
 
 // Function to perform the rendering.
@@ -77,9 +77,9 @@ bool RayTracer::Scene::Render(RayTracer::Image &outputImage) {
 
     // Loop over each pixel in our image.
     RayTracer::Ray cameraRay;
-    qbVector<double> intPoint(3);
-    qbVector<double> localNormal(3);
-    qbVector<double> localColor(3);
+    Vector3D intPoint(3);
+    Vector3D localNormal(3);
+    Vector3D localColor(3);
     double xFact = 1.0 / (static_cast<double>(xSize) / 2.0);
     double yFact = 1.0 / (static_cast<double>(ySize) / 2.0);
     for (int x = 0; x < xSize; ++x) {
@@ -93,9 +93,9 @@ bool RayTracer::Scene::Render(RayTracer::Image &outputImage) {
 
             // Test for intersections with all objects in the scene.
             std::unique_ptr<RayTracer::AObject> closestObject = std::make_unique<RayTracer::AObject>();
-            qbVector<double> closestIntPoint{3};
-            qbVector<double> closestLocalNormal{3};
-            qbVector<double> closestLocalColor{3};
+            Vector3D closestIntPoint{3};
+            Vector3D closestLocalNormal{3};
+            Vector3D closestLocalColor{3};
             double minDist = 1e6;
             bool intersectionFound = false;
             for (std::size_t i = 0; i < m_objectList.size(); i++) {
@@ -127,7 +127,7 @@ bool RayTracer::Scene::Render(RayTracer::Image &outputImage) {
             if (intersectionFound) {
                 // Compute the intensity of illumination.
                 double intensity = 1;
-                qbVector<double> color{3};
+                Vector3D color{3};
                 double red = 0.0;
                 double green = 0.0;
                 double blue = 0.0;
@@ -135,7 +135,7 @@ bool RayTracer::Scene::Render(RayTracer::Image &outputImage) {
                 bool illumFound = false;
                 for (std::size_t i = 0; i < m_lightList.size(); i++) {
                     validIllum = m_lightList[i]->ComputeIllumination(closestIntPoint, closestLocalNormal, m_objectList,
-                                                                   closestObject, color, intensity);
+                                                                     closestObject, color, intensity);
 
                     if (validIllum) {
                         illumFound = true;

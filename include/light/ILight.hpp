@@ -13,29 +13,29 @@
 #include "Ray.hpp"
 
 namespace RayTracer {
-    class ILight {
-        public:
-            virtual ~ILight() = default;
-            virtual bool ComputeIllumination(const qbVector<double> &intPoint, const qbVector<double> &localNormal,
-                                            const std::vector<std::unique_ptr<RayTracer::AObject>> &objectList,
-                                            const std::unique_ptr<RayTracer::AObject> &currentObject, qbVector<double> &color,
-                                            double &intensity) = 0;
-        public:
-            qbVector<double> m_color{3};
-            qbVector<double> m_location{3};
-            double m_intensity;
-    };
-    class ALight : public ILight {
-        public:
-            // Constructor / destructor.
-            ALight() = default;
-            virtual ~ALight() = default;
+class ILight {
+public:
+    virtual ~ILight() = default;
+    virtual bool ComputeIllumination(const Vector3D &intPoint, const Vector3D &localNormal,
+                                     const std::vector<std::unique_ptr<RayTracer::AObject>> &objectList,
+                                     const std::unique_ptr<RayTracer::AObject> &currentObject, Vector3D &color,
+                                     double &intensity) = 0;
 
-            // Function to compute illumination contribution.
-            virtual bool ComputeIllumination(const qbVector<double> &intPoint, const qbVector<double> &localNormal,
-                                            const std::vector<std::unique_ptr<RayTracer::AObject>> &objectList,
-                                            const std::unique_ptr<RayTracer::AObject> &currentObject, qbVector<double> &color,
-                                            double &intensity);
+public:
+    Vector3D m_color{3};
+    Vector3D m_location{3};
+    double m_intensity;
+};
+class ALight : public ILight {
+public:
+    // Constructor / destructor.
+    ALight() = default;
+    virtual ~ALight() = default;
 
-    };
+    // Function to compute illumination contribution.
+    virtual bool ComputeIllumination(const Vector3D &intPoint, const Vector3D &localNormal,
+                                     const std::vector<std::unique_ptr<RayTracer::AObject>> &objectList,
+                                     const std::unique_ptr<RayTracer::AObject> &currentObject, Vector3D &color,
+                                     double &intensity);
+};
 } // namespace RayTracer

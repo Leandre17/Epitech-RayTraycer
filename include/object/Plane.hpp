@@ -10,15 +10,13 @@
 #include "gtfm.hpp"
 
 namespace RayTracer {
-    class Plane : public AObject {
-        public:
-            Plane() = default;
-            ~Plane() override = default;
+class Plane : public AObject {
+public:
+    Plane() = default;
+    ~Plane() override = default;
 
-            // Override the function to test for intersections.
-            virtual bool TestIntersection(const RayTracer::Ray &castRay, qbVector<double> &intPoint, qbVector<double> &localNormal,
-                                        qbVector<double> &localColor) override;
-
-    };
+    // Override the function to test for intersections.
+    virtual bool TestIntersection(const RayTracer::Ray &castRay, Vector3D &intPoint, Vector3D &localNormal,
+                                  Vector3D &localColor) override;
+};
 } // namespace RayTracer
-

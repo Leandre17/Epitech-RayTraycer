@@ -29,7 +29,7 @@
 #define EPSILON 1e-21f;
 
 // Function to test for intersections.
-bool RayTracer::AObject::TestIntersection(const Ray &, qbVector<double> &, qbVector<double> &, qbVector<double> &) {
+bool RayTracer::AObject::TestIntersection(const Ray &, Vector3D &, Vector3D &, Vector3D &) {
     return false;
 }
 
