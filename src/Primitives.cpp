@@ -18,7 +18,6 @@ bool RayTracer::Sphere::hits(RayTracer::Ray ray) {
     double a = std::pow(ray.direction.length(), 2);
     double b = 2 * dot(ray.direction, ray.origin - center);
     double c = std::pow((ray.origin - center).length(), 2) - std::pow(radius, 2);
-
     double discriminant = std::pow(b, 2) - 4 * a * c;
 
     if (discriminant >= 0) {
