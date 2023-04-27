@@ -43,7 +43,7 @@ RayTracer::Scene::Scene() {
                              Vector3D{std::vector<double>{0.0, 0.0, 0.0}},
                              Vector3D{std::vector<double>{0.75, 0.5, 0.5}});
 
-    testMatrix3.SetTransform(Vector3D{std::vector<double>{1.5, 0.0, 0.0}},
+    testMatrix3.SetTransform(Vector3D{std::vector<double>{-1.0, 7.0, 0.0}},
                              Vector3D{std::vector<double>{0.0, 0.0, 0.0}},
                              Vector3D{std::vector<double>{0.75, 0.75, 0.75}});
 
@@ -61,7 +61,7 @@ RayTracer::Scene::Scene() {
     // m_lightList.at(0)->m_color = Vector3D{std::vector<double>{0.0, 0.0, 1.0}};
 
     m_lightList.push_back(std::make_unique<RayTracer::PointLight>(RayTracer::PointLight()));
-    m_lightList.at(0)->m_location = Vector3D{std::vector<double>{-5.0, -10.0, -5.0}};
+    m_lightList.at(0)->m_location = Vector3D{std::vector<double>{0, -10.0, -5.0}};
     m_lightList.at(0)->m_color = Vector3D{std::vector<double>{1.0, 1.0, 1.0}};
 
     // m_lightList.push_back(std::make_unique<RayTracer::PointLight>(RayTracer::PointLight()));

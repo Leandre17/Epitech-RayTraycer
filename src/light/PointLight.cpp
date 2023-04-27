@@ -9,7 +9,7 @@
 
 RayTracer::PointLight::PointLight() {
     m_color = Vector3D{std::vector<double>{1.0, 1.0, 1.0}};
-    m_intensity = 1.0;
+    m_intensity = 1;
 }
 
 // Function to compute illumination.
@@ -42,7 +42,7 @@ bool RayTracer::PointLight::ComputeIllumination(const Vector3D &intPoint, const 
         if (angle > 1.5708) {
             // No illumination.
             color = m_color;
-            intensity = 0.0;
+            intensity = 1.0;
             return false;
         } else {
             // We do have illumination.
