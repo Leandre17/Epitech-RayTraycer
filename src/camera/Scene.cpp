@@ -74,7 +74,6 @@ bool RayTracer::Scene::Render(RayTracer::Image &outputImage) {
     // Get the dimensions of the output image.
     int xSize = outputImage.GetWidth();
     int ySize = outputImage.GetHeight();
-
     // Loop over each pixel in our image.
     RayTracer::Ray cameraRay;
     Vector3D intPoint(3);
@@ -82,6 +81,7 @@ bool RayTracer::Scene::Render(RayTracer::Image &outputImage) {
     Vector3D localColor(3);
     double xFact = 1.0 / (static_cast<double>(xSize) / 2.0);
     double yFact = 1.0 / (static_cast<double>(ySize) / 2.0);
+
     for (int x = 0; x < xSize; ++x) {
         for (int y = 0; y < ySize; ++y) {
             // Normalize the x and y coordinates.
@@ -135,8 +135,7 @@ bool RayTracer::Scene::Render(RayTracer::Image &outputImage) {
                 bool illumFound = false;
                 for (std::size_t i = 0; i < m_lightList.size(); i++) {
                     validIllum = m_lightList[i]->ComputeIllumination(closestIntPoint, closestLocalNormal, m_objectList,
-                                                                     closestObject, color, intensity);
-
+                        closestObject, color, intensity);
                     if (validIllum) {
                         illumFound = true;
                         red += color.GetElement(0) * intensity;

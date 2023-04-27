@@ -8,7 +8,6 @@
 #include "Camera.hpp"
 #include <math.h>
 #include "Ray.hpp"
-#include "../include/camera/Camera.hpp"
 
 RayTracer::Camera::Camera() {
     // The default constructor.

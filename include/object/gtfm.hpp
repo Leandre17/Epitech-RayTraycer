@@ -19,7 +19,6 @@ class GTform {
 public:
     GTform();
     ~GTform() = default;
-    GTform(const Matrix &fwd, const Matrix &bck);
     // Function to set translation, rotation and scale components.
     void SetTransform(const Vector3D &translation, const Vector3D &rotation, const Vector3D &scale);
     // Functions to return the transform matrices.

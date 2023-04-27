@@ -13,17 +13,6 @@ RayTracer::GTform::GTform() {
     backward.SetToIdentity();
 }
 
-// Construct from a pair of matrices.
-RayTracer::GTform::GTform(const Matrix &fwd, const Matrix &bck) {
-    // Verify that the inputs are 4x4.
-    if ((fwd.GetNumRows() != 4) || (fwd.GetNumCols() != 4) || (bck.GetNumRows() != 4) || (bck.GetNumCols() != 4)) {
-        throw std::invalid_argument("Cannot construct GTform, inputs are not all 4x4.");
-    }
-
-    forward = fwd;
-    backward = bck;
-}
-
 // Function to set the transform.
 void RayTracer::GTform::SetTransform(const Vector3D &translation, const Vector3D &rotation, const Vector3D &scale) {
     // Define a matrix for each component of the transform.
@@ -81,7 +70,6 @@ Matrix RayTracer::GTform::GetBackward() { return backward; }
 
 // Function to apply the transform.
 RayTracer::Ray RayTracer::GTform::Apply(const RayTracer::Ray &inputRay, bool dirFlag) {
-    // Create an output object.
     RayTracer::Ray outputRay;
 
     if (dirFlag) {
@@ -95,28 +83,21 @@ RayTracer::Ray RayTracer::GTform::Apply(const RayTracer::Ray &inputRay, bool dir
         outputRay.m_point2 = this->Apply(inputRay.m_point2, RayTracer::BACKWARD);
         outputRay.m_lab = outputRay.m_point2 - outputRay.m_point1;
     }
-
     return outputRay;
 }
 
 Vector3D RayTracer::GTform::Apply(const Vector3D &inputVector, bool dirFlag) {
-    // Convert inputVector to a 4-element vector.
+    Vector3D resultVector;
     std::vector<double> tempData{inputVector.GetElement(0), inputVector.GetElement(1), inputVector.GetElement(2), 1.0};
     Vector3D tempVector{tempData};
 
-    // Create a vector for the result.
-    Vector3D resultVector;
-
-    if (dirFlag) {
-        // Apply the forward transform.
+    if (dirFlag)
         resultVector = forward * tempVector;
-    } else {
-        // Apply the backward transform.
+    else
         resultVector = backward * tempVector;
-    }
-    // Reform the output as a 3-element vector.
-    Vector3D outputVector{
-        std::vector<double>{resultVector.GetElement(0), resultVector.GetElement(1), resultVector.GetElement(2)}};
 
+    // Reform the output as a 3-element vector.
+    Vector3D outputVector{std::vector<double>{resultVector.GetElement(0), resultVector.GetElement(1), resultVector.GetElement(2)}};
+    
     return outputVector;
 }

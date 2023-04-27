@@ -1,27 +1,9 @@
-/* ***********************************************************
-    AObject.cpp
-
-    The AObject class implementation - A base class from which
-    all other object classes will inherit.
-
-    This file forms part of the qbRayTrace project as described
-    in the series of videos on the QuantitativeBytes YouTube
-    channel.
-
-    This code corresponds specifically to Episode 2 of the series,
-    which may be found here:
-    https://youtu.be/8fWZM8hCX5E
-
-    The whole series may be found on the QuantitativeBytes
-    YouTube channel at:
-    www.youtube.com/c/QuantitativeBytes
-
-    GPLv3 LICENSE
-    Copyright (c) 2021 Michael Bennett
-
-***********************************************************/
-
-// AObject.cpp
+/*
+** EPITECH PROJECT, 2023
+** Raytracer
+** File description:
+** AObject
+*/
 
 #include <math.h>
 #include "IObject.hpp"

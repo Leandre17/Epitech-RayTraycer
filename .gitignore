@@ -2,8 +2,6 @@
 *.d
 test/
 .vscode/
-arcade
-.clang-format
 # Compiled Object files
 *.slo
 *.lo
