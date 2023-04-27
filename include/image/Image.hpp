@@ -19,6 +19,7 @@ namespace RayTracer {
             ~Image() = default;
             void SetPixel(const int x, const int y, const double red, const double green, const double blue);
             void Display();
+            void Display(std::string filepath);
             int GetWidth();
             int GetHeight();
         private:

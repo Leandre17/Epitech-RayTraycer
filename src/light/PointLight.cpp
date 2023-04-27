@@ -16,36 +16,23 @@ RayTracer::PointLight::PointLight() {
 bool RayTracer::PointLight::ComputeIllumination(const Vector3D &intPoint, const Vector3D &localNormal,
                                                 const std::vector<std::unique_ptr<RayTracer::AObject>> &objectList,
                                                 const std::unique_ptr<RayTracer::AObject> &currentObject,
-                                                Vector3D &color, double &intensity) {
-    // Construct a vector pointing from the intersection point to the light.
-    Vector3D lightDir = (m_location - intPoint).Normalized();
-
-    // Compute a starting point.
-    Vector3D startPoint = intPoint;
-
-    // Construct a ray from the point of intersection to the light.
-    RayTracer::Ray lightRay(startPoint, startPoint + lightDir);
-
-    /* Check for intersections with all of the objects
-        in the scene, except for the current one. */
+                                                Vector3D &color, double &intensity)
+{
     Vector3D poi{3};
     Vector3D poiNormal{3};
     Vector3D poiColor{3};
     bool validInt = false;
-    for (std::size_t i = 0; i < objectList.size(); i++) {
-        if (objectList[i] != currentObject) {
-            validInt = objectList[i]->TestIntersection(lightRay, poi, poiNormal, poiColor);
-        }
+    // Construct a vector pointing from the intersection point to the light.
+    Vector3D lightDir = (m_location - intPoint).Normalized();
+    Vector3D startPoint = intPoint;
+    // Construct a ray from the point of intersection to the light.
+    RayTracer::Ray lightRay(startPoint, startPoint + lightDir);
 
-        /* If we have an intersection, then there is no point checking further
-            so we can break out of the loop. In other words, this object is
-            blocking light from this light source. */
+    for (std::size_t i = 0; i < objectList.size(); i++) {
+        if (objectList[i] != currentObject)
+            validInt = objectList[i]->TestIntersection(lightRay, poi, poiNormal, poiColor);
         if (validInt) break;
     }
-
-    /* Only continue to compute illumination if the light ray didn't
-        intersect with any objects in the scene. Ie. no objects are
-        casting a shadow from this light source. */
     if (!validInt) {
         // Compute the angle between the local normal and the light ray.
         // Note that we assume that localNormal is a unit vector.

@@ -56,17 +56,17 @@ RayTracer::Scene::Scene() {
     m_objectList.at(2)->m_baseColor = Vector3D{std::vector<double>{1.0, 0.8, 0.0}};
 
     // Construct a test light.
-    m_lightList.push_back(std::make_unique<RayTracer::PointLight>(RayTracer::PointLight()));
-    m_lightList.at(0)->m_location = Vector3D{std::vector<double>{5.0, -10.0, -5.0}};
-    m_lightList.at(0)->m_color = Vector3D{std::vector<double>{0.0, 0.0, 1.0}};
+    // m_lightList.push_back(std::make_unique<RayTracer::PointLight>(RayTracer::PointLight()));
+    // m_lightList.at(0)->m_location = Vector3D{std::vector<double>{5.0, -10.0, -5.0}};
+    // m_lightList.at(0)->m_color = Vector3D{std::vector<double>{0.0, 0.0, 1.0}};
 
     m_lightList.push_back(std::make_unique<RayTracer::PointLight>(RayTracer::PointLight()));
-    m_lightList.at(1)->m_location = Vector3D{std::vector<double>{-5.0, -10.0, -5.0}};
-    m_lightList.at(1)->m_color = Vector3D{std::vector<double>{1.0, 0.0, 0.0}};
+    m_lightList.at(0)->m_location = Vector3D{std::vector<double>{-5.0, -10.0, -5.0}};
+    m_lightList.at(0)->m_color = Vector3D{std::vector<double>{1.0, 1.0, 1.0}};
 
-    m_lightList.push_back(std::make_unique<RayTracer::PointLight>(RayTracer::PointLight()));
-    m_lightList.at(2)->m_location = Vector3D{std::vector<double>{0.0, -10.0, -5.0}};
-    m_lightList.at(2)->m_color = Vector3D{std::vector<double>{0.0, 1.0, 0.0}};
+    // m_lightList.push_back(std::make_unique<RayTracer::PointLight>(RayTracer::PointLight()));
+    // m_lightList.at(2)->m_location = Vector3D{std::vector<double>{0.0, -10.0, -5.0}};
+    // m_lightList.at(2)->m_color = Vector3D{std::vector<double>{0.0, 1.0, 0.0}};
 }
 
 // Function to perform the rendering.
