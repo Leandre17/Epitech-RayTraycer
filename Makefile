@@ -5,6 +5,8 @@
 ## Makefile
 ##
 
+SRC_PARSING	=	src/parsing/parsing_obj.cpp
+
 SRC =	src/main.cpp \
 	src/algo/Vector.cpp	\
 	src/algo/Matrix.cpp	\
@@ -18,13 +20,14 @@ SRC =	src/main.cpp \
 	src/object/AObject.cpp	\
 	src/object/Plane.cpp	\
 	src/object/Sphere.cpp	\
-	src/object/gtfm.cpp
+	src/object/gtfm.cpp	\
+	${SRC_PARSING}
 
 NAME = raytracer
 
-CXXFLAGS	=	-Wall -Wextra -std=c++20
+CXXFLAGS	=	-Wall -Wextra -std=c++20 -lconfig++
 
-CPPFLAGS	= -I ./include -I ./include/image -I ./include/algo -I ./include/camera -I ./include/object -I ./include/light
+CPPFLAGS	= -I ./include -I ./include/image -I ./include/algo -I ./include/camera -I ./include/object -I ./include/light -I ./incluse/parsing
 
 OBJ	=	$(SRC:.cpp=.o)
 
