@@ -15,6 +15,7 @@
 #include "Plane.hpp"
 #include "Sphere.hpp"
 #include "PointLight.hpp"
+#include "../camera/Camera.hpp"
 
 namespace RayTracer {
     class Scene {

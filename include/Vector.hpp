@@ -52,11 +52,17 @@ namespace Math {
             Point3D(Point3D &&) = default;
             Point3D(const Point3D &) = default;
             Point3D(const Vector3D &o) : X{o.X}, Y{o.Y}, Z{o.Z} {};
-            Point3D &operator=(const Vector3D &o) {
+            // Point3D &operator=(const Vector3D &o) {
+            //     this->X = o.X;
+            //     this->Y = o.Y;
+            //     this->Z = o.Z;
+            //     return (Point3D){o.X, o.Y, o.Z};
+            // };
+            Point3D& operator=(const Vector3D &o) {
                 this->X = o.X;
                 this->Y = o.Y;
                 this->Z = o.Z;
-                return (Point3D){o.X, o.Y, o.Z};
+                return *this;
             };
             Point3D &operator=(Point3D &&) = default;
             Point3D &operator=(const Point3D &) = default;
