@@ -20,7 +20,7 @@ SRC =	src/main.cpp \
 	src/object/AObject.cpp	\
 	src/object/Plane.cpp	\
 	src/object/Sphere.cpp	\
-	src/object/gtfm.cpp	\
+	src/object/Transform.cpp	\
 	${SRC_PARSING}
 
 NAME = raytracer

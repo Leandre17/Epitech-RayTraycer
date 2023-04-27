@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2023
 ** Raytracer
 ** File description:
-** gtfm
+** Transform
 */
 
 #pragma once
@@ -15,10 +15,10 @@ namespace RayTracer {
 constexpr bool FORWARD = true;
 constexpr bool BACKWARD = false;
 
-class GTform {
+class Transform {
 public:
-    GTform();
-    ~GTform() = default;
+    Transform();
+    ~Transform() = default;
     // Function to set translation, rotation and scale components.
     void SetTransform(const Vector3D &translation, const Vector3D &rotation, const Vector3D &scale);
     // Functions to return the transform matrices.

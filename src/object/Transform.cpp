@@ -2,19 +2,19 @@
 ** EPITECH PROJECT, 2023
 ** Raytracer
 ** File description:
-** gtfm
+** Transform
 */
 
-#include "gtfm.hpp"
+#include "Transform.hpp"
 
-RayTracer::GTform::GTform() {
+RayTracer::Transform::Transform() {
     // Set forward and backward transforms to identity matrices.
     forward.SetToIdentity();
     backward.SetToIdentity();
 }
 
 // Function to set the transform.
-void RayTracer::GTform::SetTransform(const Vector3D &translation, const Vector3D &rotation, const Vector3D &scale) {
+void RayTracer::Transform::SetTransform(const Vector3D &translation, const Vector3D &rotation, const Vector3D &scale) {
     // Define a matrix for each component of the transform.
     Matrix translationMatrix{4, 4};
     Matrix rotationMatrixX{4, 4};
@@ -65,11 +65,11 @@ void RayTracer::GTform::SetTransform(const Vector3D &translation, const Vector3D
 }
 
 // Functions to return the transform matrices.
-Matrix RayTracer::GTform::GetForward() { return forward; }
-Matrix RayTracer::GTform::GetBackward() { return backward; }
+Matrix RayTracer::Transform::GetForward() { return forward; }
+Matrix RayTracer::Transform::GetBackward() { return backward; }
 
 // Function to apply the transform.
-RayTracer::Ray RayTracer::GTform::Apply(const RayTracer::Ray &inputRay, bool dirFlag) {
+RayTracer::Ray RayTracer::Transform::Apply(const RayTracer::Ray &inputRay, bool dirFlag) {
     RayTracer::Ray outputRay;
 
     if (dirFlag) {
@@ -86,7 +86,7 @@ RayTracer::Ray RayTracer::GTform::Apply(const RayTracer::Ray &inputRay, bool dir
     return outputRay;
 }
 
-Vector3D RayTracer::GTform::Apply(const Vector3D &inputVector, bool dirFlag) {
+Vector3D RayTracer::Transform::Apply(const Vector3D &inputVector, bool dirFlag) {
     Vector3D resultVector;
     std::vector<double> tempData{inputVector.GetElement(0), inputVector.GetElement(1), inputVector.GetElement(2), 1.0};
     Vector3D tempVector{tempData};
@@ -97,7 +97,8 @@ Vector3D RayTracer::GTform::Apply(const Vector3D &inputVector, bool dirFlag) {
         resultVector = backward * tempVector;
 
     // Reform the output as a 3-element vector.
-    Vector3D outputVector{std::vector<double>{resultVector.GetElement(0), resultVector.GetElement(1), resultVector.GetElement(2)}};
-    
+    Vector3D outputVector{
+        std::vector<double>{resultVector.GetElement(0), resultVector.GetElement(1), resultVector.GetElement(2)}};
+
     return outputVector;
 }

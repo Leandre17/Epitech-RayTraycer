@@ -7,7 +7,7 @@
 
 #pragma once
 #include "IObject.hpp"
-#include "gtfm.hpp"
+#include "Transform.hpp"
 
 namespace RayTracer {
 class Plane : public AObject {

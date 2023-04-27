@@ -8,7 +8,7 @@
 #pragma once
 
 #include "IObject.hpp"
-#include "gtfm.hpp"
+#include "Transform.hpp"
 
 namespace RayTracer {
 class Sphere : public AObject {

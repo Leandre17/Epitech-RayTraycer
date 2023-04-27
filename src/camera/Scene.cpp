@@ -27,24 +27,20 @@ RayTracer::Scene::Scene() {
     m_objectList.at(3)->m_baseColor = Vector3D{std::vector<double>{0.5, 0.5, 0.5}};
 
     // Define a transform for the plane.
-    RayTracer::GTform planeMatrix;
-    planeMatrix.SetTransform(Vector3D{std::vector<double>{0.0, 0.0, 0.75}},
-                             Vector3D{std::vector<double>{0.0, 0.0, 0.0}},
+    RayTracer::Transform planeMatrix;
+    planeMatrix.SetTransform(Vector3D{std::vector<double>{0.0, 0.0, 0.75}}, Vector3D{std::vector<double>{0.0, 0.0, 0.0}},
                              Vector3D{std::vector<double>{4.0, 4.0, 1.0}});
     m_objectList.at(3)->SetTransformMatrix(planeMatrix);
 
     // Modify the spheres.
-    RayTracer::GTform testMatrix1, testMatrix2, testMatrix3;
-    testMatrix1.SetTransform(Vector3D{std::vector<double>{-1.5, 0.0, 0.0}},
-                             Vector3D{std::vector<double>{0.0, 0.0, 0.0}},
+    RayTracer::Transform testMatrix1, testMatrix2, testMatrix3;
+    testMatrix1.SetTransform(Vector3D{std::vector<double>{-1.5, 0.0, 0.0}}, Vector3D{std::vector<double>{0.0, 0.0, 0.0}},
                              Vector3D{std::vector<double>{0.5, 0.5, 0.75}});
 
-    testMatrix2.SetTransform(Vector3D{std::vector<double>{0.0, 0.0, 0.0}},
-                             Vector3D{std::vector<double>{0.0, 0.0, 0.0}},
+    testMatrix2.SetTransform(Vector3D{std::vector<double>{0.0, 0.0, 0.0}}, Vector3D{std::vector<double>{0.0, 0.0, 0.0}},
                              Vector3D{std::vector<double>{0.75, 0.5, 0.5}});
 
-    testMatrix3.SetTransform(Vector3D{std::vector<double>{-1.0, 7.0, 0.0}},
-                             Vector3D{std::vector<double>{0.0, 0.0, 0.0}},
+    testMatrix3.SetTransform(Vector3D{std::vector<double>{-1.0, 7.0, 0.0}}, Vector3D{std::vector<double>{0.0, 0.0, 0.0}},
                              Vector3D{std::vector<double>{0.75, 0.75, 0.75}});
 
     m_objectList.at(0)->SetTransformMatrix(testMatrix1);
@@ -135,7 +131,7 @@ bool RayTracer::Scene::Render(RayTracer::Image &outputImage) {
                 bool illumFound = false;
                 for (std::size_t i = 0; i < m_lightList.size(); i++) {
                     validIllum = m_lightList[i]->ComputeIllumination(closestIntPoint, closestLocalNormal, m_objectList,
-                        closestObject, color, intensity);
+                                                                     closestObject, color, intensity);
                     if (validIllum) {
                         illumFound = true;
                         red += color.GetElement(0) * intensity;

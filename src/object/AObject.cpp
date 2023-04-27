@@ -11,11 +11,9 @@
 #define EPSILON 1e-21f;
 
 // Function to test for intersections.
-bool RayTracer::AObject::TestIntersection(const Ray &, Vector3D &, Vector3D &, Vector3D &) {
-    return false;
-}
+bool RayTracer::AObject::TestIntersection(const Ray &, Vector3D &, Vector3D &, Vector3D &) { return false; }
 
-void RayTracer::AObject::SetTransformMatrix(const RayTracer::GTform &transformMatrix) {
+void RayTracer::AObject::SetTransformMatrix(const RayTracer::Transform &transformMatrix) {
     m_transformMatrix = transformMatrix;
 }
 
