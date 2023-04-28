@@ -28,6 +28,8 @@ namespace RayTracer {
             int parse_primitives(void);
             int parse_lights(void);
 
+            int print_informations(void);
+            int print_tab(std::vector<tab_int> tab);
             int manage_parsing(void);
         protected:
         private:

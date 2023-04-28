@@ -27,7 +27,7 @@ NAME = raytracer
 
 CXXFLAGS	=	-Wall -Wextra -std=c++20 -lconfig++
 
-CPPFLAGS	= -I ./include -I ./include/image -I ./include/algo -I ./include/camera -I ./include/object -I ./include/light -I ./incluse/parsing
+CPPFLAGS	= -I ./include -I ./include/image -I ./include/algo -I ./include/camera -I ./include/object -I ./include/light -I ./include/parsing
 
 OBJ	=	$(SRC:.cpp=.o)
 

@@ -133,9 +133,50 @@ int RayTracer::Parsing_OBJ::parse_lights()
     }
 }
 
+int RayTracer::Parsing_OBJ::print_tab(std::vector<std::vector<int>> tab) {
+    for (const auto& sub_tab : tab) {
+        for (const auto& i : sub_tab) {
+            std::cout << i << " ";
+        }
+        std::cout << std::endl;
+    }
+    return (0);
+}
+
+int RayTracer::Parsing_OBJ::print_informations()
+{
+    std::cout << "[GENERAL]" << std::endl;
+    std::cout << m_filename << std::endl << std::endl;
+    std::cout << "[CAMERA]" << std::endl;
+    std::cout << m_camera_width << std::endl;
+    std::cout << m_camera_height << std::endl;
+    std::cout << m_camera_pos_x << std::endl;
+    std::cout << m_camera_pos_y << std::endl;
+    std::cout << m_camera_pos_z << std::endl;
+    std::cout << m_camera_rotX << std::endl;
+    std::cout << m_camera_rotY << std::endl;
+    std::cout << m_camera_rotZ << std::endl;
+    std::cout << m_camera_fov << std::endl << std::endl;
+    std::cout << "[PRIMITIVES]" << std::endl;
+    std::cout << m_primitives_nbSpheres << std::endl;
+    std::cout << m_primitives_nbPlanes << std::endl;
+    print_tab(m_primitives_tab_spheres);
+    print_tab(m_primitives_tab_planes);
+    std::cout << std::endl;
+    std::cout << "[LIGHTS]" << std::endl;
+    std::cout << m_lights_ambient << std::endl;
+    std::cout << m_lights_diffuse << std::endl;
+    std::cout << m_lights_nb_points << std::endl;
+    std::cout << m_lights_nb_directional << std::endl;
+    print_tab(m_lights_tab_points);
+    print_tab(m_lights_tab_directional);
+    std::cout << std::endl;
+}
+
 int RayTracer::Parsing_OBJ::manage_parsing()
 {
     parse_camera();
     parse_primitives();
     parse_lights();
+    // print_informations();
 }

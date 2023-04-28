@@ -1,22 +1,44 @@
 
 #include "Image.hpp"
 #include "Scene.hpp"
+#include "parsing_obj.hpp"
 #include <filesystem>
+#include <string>
 
-std::string getfilename(std::string filename) {
-    std::string filepath = ((std::filesystem::path)filename).stem();
+// static std::string getfilename(std::string filename) {
+//     std::string filepath = ((std::filesystem::path)filename).stem();
 
-    filepath = "./screenshots/" + filepath + ".ppm";
-    return filepath;
+//     filepath = "./screenshots/" + filepath + ".ppm";
+//     return filepath;
+// }
+
+static int show_help(void)
+{
+    std::cout << "USAGE: ./raytracer <SCENE_FILE>" << std::endl;
+    std::cout << "  SCENE_FILE: scene configuration" << std::endl;
+    return (0);
+}
+
+static int launch_raytracer(char *scene_path)
+{
+    RayTracer::Image m_image{1280, 720};
+    RayTracer::Scene m_scene;
+    RayTracer::Parsing_OBJ parsing("config_scene/config.cfg");
+
+    m_scene.Render(m_image);
+    m_image.Display();
+    return (0);
 }
 
 int main(int ac, char**av) {
-    RayTracer::Image m_image{1280, 720};
-    RayTracer::Scene m_scene;
 
-    m_scene.Render(m_image);
-    if (ac == 1)
-        m_image.Display();
-    else
-        m_image.Display(getfilename(av[1]));
+    if (ac != 2) {
+        return (84);
+    } else {
+        if (av[1] == std::string("--help"))
+            return show_help();
+        else
+            return launch_raytracer(av[1]);
+    }
+    return (0);
 }
