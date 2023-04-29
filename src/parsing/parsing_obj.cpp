@@ -65,25 +65,29 @@ int RayTracer::Parsing_OBJ::parse_primitives()
         for(int i = 0; i < nbSpheres; ++i)
         {
             const libconfig::Setting& sphere = spheres[i];
-            int x, y, z, r;
+            double x, y, z, r;
             const libconfig::Setting& color = sphere["color"];
-            int red, green, blue;
+            double red, green, blue;
+            double scale_x, scale_y, scale_z;
             sphere.lookupValue("x", x);
             sphere.lookupValue("y", y);
             sphere.lookupValue("z", z);
             sphere.lookupValue("r", r);
+            sphere.lookupValue("scale_x", scale_x);
+            sphere.lookupValue("scale_y", scale_y);
+            sphere.lookupValue("scale_z", scale_z);
             color.lookupValue("r", red);
             color.lookupValue("g", green);
             color.lookupValue("b", blue);
-            m_primitives_tab_spheres.push_back({x, y, z, r, red, green, blue});
+            m_primitives_tab_spheres.push_back({x, y, z, r, red, green, blue, scale_x, scale_y, scale_z});
         }
         for(int i = 0; i < nbPlanes; ++i)
         {
             const libconfig::Setting& plane = planes[i];
-            int axis;
-            int position;
+            double axis;
+            double position;
             const libconfig::Setting& color = plane["color"];
-            int red, green, blue;
+            double red, green, blue;
             plane.lookupValue("axis", axis);
             plane.lookupValue("position", position);
             color.lookupValue("r", red);
@@ -133,7 +137,17 @@ int RayTracer::Parsing_OBJ::parse_lights()
     }
 }
 
-int RayTracer::Parsing_OBJ::print_tab(std::vector<std::vector<int>> tab) {
+int RayTracer::Parsing_OBJ::print_tab_int(std::vector<std::vector<int>> tab) {
+    for (const auto& sub_tab : tab) {
+        for (const auto& i : sub_tab) {
+            std::cout << i << " ";
+        }
+        std::cout << std::endl;
+    }
+    return (0);
+}
+
+int RayTracer::Parsing_OBJ::print_tab_double(std::vector<std::vector<double>> tab) {
     for (const auto& sub_tab : tab) {
         for (const auto& i : sub_tab) {
             std::cout << i << " ";
@@ -160,16 +174,16 @@ int RayTracer::Parsing_OBJ::print_informations()
     std::cout << "[PRIMITIVES]" << std::endl;
     std::cout << m_primitives_nbSpheres << std::endl;
     std::cout << m_primitives_nbPlanes << std::endl;
-    print_tab(m_primitives_tab_spheres);
-    print_tab(m_primitives_tab_planes);
+    print_tab_double(m_primitives_tab_spheres);
+    print_tab_double(m_primitives_tab_planes);
     std::cout << std::endl;
     std::cout << "[LIGHTS]" << std::endl;
     std::cout << m_lights_ambient << std::endl;
     std::cout << m_lights_diffuse << std::endl;
     std::cout << m_lights_nb_points << std::endl;
     std::cout << m_lights_nb_directional << std::endl;
-    print_tab(m_lights_tab_points);
-    print_tab(m_lights_tab_directional);
+    print_tab_int(m_lights_tab_points);
+    print_tab_int(m_lights_tab_directional);
     std::cout << std::endl;
 }
 

@@ -11,45 +11,39 @@
 RayTracer::Scene::Scene(RayTracer::Parsing_OBJ parsing) {
     // Configure the camera.
     m_camera.SetPosition(Vector3D{std::vector<double>{parsing.m_camera_pos_x, parsing.m_camera_pos_y, parsing.m_camera_pos_z}});
-    m_camera.SetLookAt(Vector3D{std::vector<double>{0.0, 0.0, 0.0}});
+    m_camera.SetLookAt(Vector3D{std::vector<double>{parsing.m_camera_rotX, parsing.m_camera_rotY, parsing.m_camera_rotZ}});
     m_camera.SetUp(Vector3D{std::vector<double>{0.0, 0.0, 1.0}});
     m_camera.SetHorzSize(0.25);
     m_camera.SetAspect(16.0 / 9.0);
     m_camera.UpdateCameraGeometry();
 
-    // Construct a test sphere.
-    m_objectList.push_back(std::make_unique<RayTracer::Sphere>(RayTracer::Sphere()));
-    m_objectList.push_back(std::make_unique<RayTracer::Sphere>(RayTracer::Sphere()));
-    m_objectList.push_back(std::make_unique<RayTracer::Sphere>(RayTracer::Sphere()));
+    // Construct all spheres
+    int number_spheres = parsing.m_primitives_nbSpheres;
+    for (int i = 0; i < number_spheres; i++) {
+        m_objectList.push_back(std::make_unique<RayTracer::Sphere>(RayTracer::Sphere()));
+        m_objectList.at(i)->m_baseColor = Vector3D{std::vector<double>{parsing.m_primitives_tab_spheres[i][4], parsing.m_primitives_tab_spheres[i][5], parsing.m_primitives_tab_spheres[i][6]}};
+    }
 
-    // Construct a test plane.
-    m_objectList.push_back(std::make_unique<RayTracer::Plane>(RayTracer::Plane()));
-    m_objectList.at(3)->m_baseColor = Vector3D{std::vector<double>{0.5, 0.5, 0.5}};
+    // Construct all planes
+    int number_planes = parsing.m_primitives_nbPlanes;
+    for (int i = 0; i < number_planes; i++) {
+        m_objectList.push_back(std::make_unique<RayTracer::Plane>(RayTracer::Plane()));
+        m_objectList.at(number_spheres + i)->m_baseColor = Vector3D{std::vector<double>{parsing.m_primitives_tab_planes[i][2], parsing.m_primitives_tab_planes[i][3], parsing.m_primitives_tab_planes[i][4]}};
+    }
 
     // Define a transform for the plane.
     RayTracer::Transform planeMatrix;
     planeMatrix.SetTransform(Vector3D{std::vector<double>{0.0, 0.0, 0.75}}, Vector3D{std::vector<double>{0.0, 0.0, 0.0}},
                              Vector3D{std::vector<double>{4.0, 4.0, 1.0}});
-    m_objectList.at(3)->SetTransformMatrix(planeMatrix);
+    m_objectList.at(number_spheres)->SetTransformMatrix(planeMatrix);
 
     // Modify the spheres.
-    RayTracer::Transform testMatrix1, testMatrix2, testMatrix3;
-    testMatrix1.SetTransform(Vector3D{std::vector<double>{-1.5, 0.0, 0.0}}, Vector3D{std::vector<double>{0.0, 0.0, 0.0}},
-                             Vector3D{std::vector<double>{0.5, 0.5, 0.75}});
-
-    testMatrix2.SetTransform(Vector3D{std::vector<double>{0.0, 0.0, 0.0}}, Vector3D{std::vector<double>{0.0, 0.0, 0.0}},
-                             Vector3D{std::vector<double>{0.75, 0.5, 0.5}});
-
-    testMatrix3.SetTransform(Vector3D{std::vector<double>{-1.0, 7.0, 0.0}}, Vector3D{std::vector<double>{0.0, 0.0, 0.0}},
-                             Vector3D{std::vector<double>{0.75, 0.75, 0.75}});
-
-    m_objectList.at(0)->SetTransformMatrix(testMatrix1);
-    m_objectList.at(1)->SetTransformMatrix(testMatrix2);
-    m_objectList.at(2)->SetTransformMatrix(testMatrix3);
-
-    m_objectList.at(0)->m_baseColor = Vector3D{std::vector<double>{0.25, 0.5, 0.8}};
-    m_objectList.at(1)->m_baseColor = Vector3D{std::vector<double>{1.0, 0.5, 0.0}};
-    m_objectList.at(2)->m_baseColor = Vector3D{std::vector<double>{1.0, 0.8, 0.0}};
+    for (int i = 0; i < number_spheres; i++) {
+        RayTracer::Transform sphereMatrix;
+        sphereMatrix.SetTransform(Vector3D{std::vector<double>{parsing.m_primitives_tab_spheres[i][0], parsing.m_primitives_tab_spheres[i][1], parsing.m_primitives_tab_spheres[i][2]}}, Vector3D{std::vector<double>{parsing.m_primitives_tab_spheres[i][3], 0.0, 0.0}},
+                                Vector3D{std::vector<double>{parsing.m_primitives_tab_spheres[i][7], parsing.m_primitives_tab_spheres[i][8], parsing.m_primitives_tab_spheres[i][9]}});
+        m_objectList.at(i)->SetTransformMatrix(sphereMatrix);
+    }
 
     // Construct a test light.
     // m_lightList.push_back(std::make_unique<RayTracer::PointLight>(RayTracer::PointLight()));

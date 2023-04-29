@@ -16,6 +16,7 @@
 #define PARSING_OBJ_HPP_
 
 using tab_int = std::vector<int>;
+using tab_double = std::vector<double>;
 
 namespace RayTracer {
 
@@ -29,7 +30,8 @@ namespace RayTracer {
             int parse_lights(void);
 
             int print_informations(void);
-            int print_tab(std::vector<tab_int> tab);
+            int print_tab_int(std::vector<tab_int> tab);
+            int print_tab_double(std::vector<std::vector<double>> tab);
             int manage_parsing(void);
             //general
             std::string m_filename;
@@ -40,15 +42,15 @@ namespace RayTracer {
             double m_camera_pos_x;
             double m_camera_pos_y;
             double m_camera_pos_z;
-            int m_camera_rotX;
-            int m_camera_rotY;
-            int m_camera_rotZ;
+            double m_camera_rotX;
+            double m_camera_rotY;
+            double m_camera_rotZ;
             double m_camera_fov;
             //primitives
             int m_primitives_nbSpheres;
             int m_primitives_nbPlanes;
-            std::vector<tab_int> m_primitives_tab_spheres;
-            std::vector<tab_int> m_primitives_tab_planes;
+            std::vector<tab_double> m_primitives_tab_spheres;
+            std::vector<tab_double> m_primitives_tab_planes;
             //lights
             float m_lights_ambient;
             float m_lights_diffuse;
