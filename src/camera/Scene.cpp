@@ -8,9 +8,9 @@
 #include "Scene.hpp"
 
 // The constructor.
-RayTracer::Scene::Scene() {
+RayTracer::Scene::Scene(RayTracer::Parsing_OBJ parsing) {
     // Configure the camera.
-    m_camera.SetPosition(Vector3D{std::vector<double>{0.0, -10.0, -2.0}});
+    m_camera.SetPosition(Vector3D{std::vector<double>{parsing.m_camera_pos_x, parsing.m_camera_pos_y, parsing.m_camera_pos_z}});
     m_camera.SetLookAt(Vector3D{std::vector<double>{0.0, 0.0, 0.0}});
     m_camera.SetUp(Vector3D{std::vector<double>{0.0, 0.0, 1.0}});
     m_camera.SetHorzSize(0.25);

@@ -31,17 +31,15 @@ namespace RayTracer {
             int print_informations(void);
             int print_tab(std::vector<tab_int> tab);
             int manage_parsing(void);
-        protected:
-        private:
             //general
             std::string m_filename;
             libconfig::Config m_cfg;
             //camera
             int m_camera_width;
             int m_camera_height;
-            int m_camera_pos_x;
-            int m_camera_pos_y;
-            int m_camera_pos_z;
+            double m_camera_pos_x;
+            double m_camera_pos_y;
+            double m_camera_pos_z;
             int m_camera_rotX;
             int m_camera_rotY;
             int m_camera_rotZ;
@@ -58,6 +56,8 @@ namespace RayTracer {
             int m_lights_nb_directional;
             std::vector<tab_int> m_lights_tab_points;
             std::vector<tab_int> m_lights_tab_directional;
+        protected:
+        private:
     };
 
 }

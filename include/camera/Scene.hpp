@@ -15,11 +15,12 @@
 #include "Plane.hpp"
 #include "Sphere.hpp"
 #include "PointLight.hpp"
+#include "parsing_obj.hpp"
 
 namespace RayTracer {
     class Scene {
         public:
-            Scene();
+            Scene(RayTracer::Parsing_OBJ parsing);
 
             // Function to perform the rendering.
             bool Render(RayTracer::Image &outputImage);

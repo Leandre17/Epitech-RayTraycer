@@ -21,9 +21,9 @@ static int show_help(void)
 
 static int launch_raytracer(char *scene_path)
 {
-    RayTracer::Image m_image{1280, 720};
-    RayTracer::Scene m_scene;
-    RayTracer::Parsing_OBJ parsing("config_scene/config.cfg");
+    RayTracer::Parsing_OBJ parsing(scene_path);
+    RayTracer::Image m_image{parsing.m_camera_width, parsing.m_camera_height};
+    RayTracer::Scene m_scene(scene_path);
 
     m_scene.Render(m_image);
     m_image.Display();
