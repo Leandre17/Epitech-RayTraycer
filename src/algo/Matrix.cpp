@@ -325,4 +325,4 @@ void Matrix::MultRow(int i, double multFactor) {
     for (int k = 0; k < m_nCols; ++k) m_matrixData[Sub2Ind(i, k)] *= multFactor;
 }
 
-bool Matrix::CloseEnough(double f1, double f2) { return fabs(f1 - f2) < 1e-9; }
+bool Matrix::CloseEnough(double f1, double f2) { return abs(f1 - f2) < 0.0000001; }

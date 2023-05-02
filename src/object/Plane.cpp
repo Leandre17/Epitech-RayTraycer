@@ -8,33 +8,26 @@
 #include "Plane.hpp"
 #include <cmath>
 
-bool RayTracer::Plane::TestIntersection(const RayTracer::Ray &castRay, Vector3D &intPoint,
-                                        Vector3D &localNormal, Vector3D &localColor) {
+bool RayTracer::Plane::TestIntersection(const RayTracer::Ray &castRay, Vector3D &intPoint, Vector3D &localNormal,
+                                        Vector3D &localColor) {
     // Copy the ray and apply the backwards transform.
     RayTracer::Ray bckRay = m_transformMatrix.Apply(castRay, RayTracer::BACKWARD);
 
-    // Copy the m_lab vector from bckRay and normalize it.
-    Vector3D k = bckRay.m_lab;
+    // Copy the distance vector from bckRay and normalize it.
+    Vector3D k = bckRay.distance;
     k.Normalize();
 
-    /* Check if there is an intersection, ie. if the castRay is not parallel
-        to the plane. */
+    /* Check if there is an intersection, ie. */
     if (!CloseEnough(k.GetElement(2), 0.0)) {
         // There is an intersection.
-        double t = bckRay.m_point1.GetElement(2) / -k.GetElement(2);
-
-        /* If t is negative, then the intersection point must be behind
-            the camera and we can ignore it. */
+        double t = bckRay.point1.GetElement(2) / -k.GetElement(2);
         if (t > 0.0) {
-            // Compute the values for u and v.
-            double u = bckRay.m_point1.GetElement(0) + (k.GetElement(0) * t);
-            double v = bckRay.m_point1.GetElement(1) + (k.GetElement(1) * t);
+            double u = bckRay.point1.GetElement(0) + (k.GetElement(0) * t);
+            double v = bckRay.point1.GetElement(1) + (k.GetElement(1) * t);
 
-            /* If the magnitude of both u and v is less than or equal to one
-                then we must be in the plane. */
             if ((abs(u) < 1.0) && (abs(v) < 1.0)) {
                 // Compute the point of intersection.
-                Vector3D poi = bckRay.m_point1 + t * k;
+                Vector3D poi = bckRay.point1 + t * k;
 
                 // Transform the intersection point back into world coordinates.
                 intPoint = m_transformMatrix.Apply(poi, RayTracer::FORWARD);
@@ -48,15 +41,11 @@ bool RayTracer::Plane::TestIntersection(const RayTracer::Ray &castRay, Vector3D 
 
                 // Return the base color.
                 localColor = m_baseColor;
-
                 return true;
-            } else {
+            } else
                 return false;
-            }
-        } else {
+        } else
             return false;
-        }
     }
-
     return false;
 }

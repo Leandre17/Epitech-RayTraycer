@@ -74,14 +74,14 @@ RayTracer::Ray RayTracer::Transform::Apply(const RayTracer::Ray &inputRay, bool 
 
     if (dirFlag) {
         // Apply the forward transform.
-        outputRay.m_point1 = this->Apply(inputRay.m_point1, RayTracer::FORWARD);
-        outputRay.m_point2 = this->Apply(inputRay.m_point2, RayTracer::FORWARD);
-        outputRay.m_lab = outputRay.m_point2 - outputRay.m_point1;
+        outputRay.point1 = this->Apply(inputRay.point1, RayTracer::FORWARD);
+        outputRay.point2 = this->Apply(inputRay.point2, RayTracer::FORWARD);
+        outputRay.distance = outputRay.point2 - outputRay.point1;
     } else {
         // Apply the backward transform.
-        outputRay.m_point1 = this->Apply(inputRay.m_point1, RayTracer::BACKWARD);
-        outputRay.m_point2 = this->Apply(inputRay.m_point2, RayTracer::BACKWARD);
-        outputRay.m_lab = outputRay.m_point2 - outputRay.m_point1;
+        outputRay.point1 = this->Apply(inputRay.point1, RayTracer::BACKWARD);
+        outputRay.point2 = this->Apply(inputRay.point2, RayTracer::BACKWARD);
+        outputRay.distance = outputRay.point2 - outputRay.point1;
     }
     return outputRay;
 }

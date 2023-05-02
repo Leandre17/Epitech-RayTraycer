@@ -84,9 +84,9 @@ bool RayTracer::Camera::GenerateRay(float proScreenX, float proScreenY, RayTrace
     Vector3D screenWorldCoordinate = screenWorldPart1 + (m_projectionScreenV * proScreenY);
 
     // Use this point along with the camera position to compute the ray.
-    cameraRay.m_point1 = position;
-    cameraRay.m_point2 = screenWorldCoordinate;
-    cameraRay.m_lab = screenWorldCoordinate - position;
+    cameraRay.point1 = position;
+    cameraRay.point2 = screenWorldCoordinate;
+    cameraRay.distance = screenWorldCoordinate - position;
 
     return true;
 }

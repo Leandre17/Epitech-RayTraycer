@@ -5,12 +5,12 @@
 #include <filesystem>
 #include <string>
 
-// static std::string getfilename(std::string filename) {
-//     std::string filepath = ((std::filesystem::path)filename).stem();
+static std::string getfilename(std::string filename) {
+    std::string filepath = ((std::filesystem::path)filename).stem();
 
-//     filepath = "./screenshots/" + filepath + ".ppm";
-//     return filepath;
-// }
+    filepath = "./screenshots/" + filepath + ".ppm";
+    return filepath;
+}
 
 static int show_help(void)
 {
@@ -26,8 +26,8 @@ static int launch_raytracer(char *scene_path)
     RayTracer::Scene m_scene(scene_path);
 
     m_scene.Render(m_image);
-    m_image.Display();
-    return (0);
+    m_image.Display(getfilename(scene_path));
+    return 0;
 }
 
 int main(int ac, char**av) {

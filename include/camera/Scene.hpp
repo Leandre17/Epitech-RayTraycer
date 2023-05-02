@@ -14,6 +14,8 @@
 #include "Image.hpp"
 #include "Plane.hpp"
 #include "Sphere.hpp"
+#include "Cone.hpp"
+#include "Cylindre.hpp"
 #include "PointLight.hpp"
 #include "parsing_obj.hpp"
 
@@ -21,16 +23,10 @@ namespace RayTracer {
     class Scene {
         public:
             Scene(RayTracer::Parsing_OBJ parsing);
-
-            // Function to perform the rendering.
             bool Render(RayTracer::Image &outputImage);
-
         private:
             RayTracer::Camera m_camera;
-            // The list of objects in the scene.
             std::vector<std::unique_ptr<RayTracer::AObject>> m_objectList;
-
-            // The list of lights in the scene.
             std::vector<std::unique_ptr<RayTracer::ALight>> m_lightList;
     };
 } // namespace RayTracer

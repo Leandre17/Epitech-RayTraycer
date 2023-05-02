@@ -20,6 +20,8 @@ SRC =	src/main.cpp \
 	src/object/AObject.cpp	\
 	src/object/Plane.cpp	\
 	src/object/Sphere.cpp	\
+	src/object/Cylindre.cpp	\
+	src/object/Cone.cpp	\
 	src/object/Transform.cpp	\
 	${SRC_PARSING}
 
