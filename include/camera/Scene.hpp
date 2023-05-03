@@ -27,7 +27,7 @@ namespace RayTracer {
         private:
             RayTracer::Camera m_camera;
             std::vector<std::unique_ptr<RayTracer::IObject>> m_objectList;
-            std::vector<std::unique_ptr<RayTracer::ALight>> m_lightList;
+            std::vector<std::unique_ptr<RayTracer::ILight>> m_lightList;
     };
 } // namespace RayTracer
 

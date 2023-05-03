@@ -76,7 +76,7 @@ RayTracer::Scene::Scene(RayTracer::Parsing_OBJ parsing) {
     // m_lightList.at(0)->m_location = Vector3D{std::vector<double>{5.0, -10.0, -5.0}};
     // m_lightList.at(0)->m_color = Vector3D{std::vector<double>{0.0, 0.0, 1.0}};
 
-    m_lightList.push_back(std::make_unique<RayTracer::PointLight>(RayTracer::PointLight()));
+    m_lightList.push_back(RayTracer::Factory::CreateLight(RayTracer::LIGHTTYPE::POINT));
     m_lightList.at(0)->m_location = Vector3D{std::vector<double>{0, -10.0, -5.0}};
     m_lightList.at(0)->m_color = Vector3D{std::vector<double>{1.0, 1.0, 1.0}};
 
@@ -85,9 +85,7 @@ RayTracer::Scene::Scene(RayTracer::Parsing_OBJ parsing) {
     // m_lightList.at(2)->m_color = Vector3D{std::vector<double>{0.0, 1.0, 0.0}};
 }
 
-// Function to perform the rendering.
 bool RayTracer::Scene::Render(RayTracer::Image &outputImage) {
-    // Get the dimensions of the output image.
     int xSize = outputImage.GetWidth();
     int ySize = outputImage.GetHeight();
     // Loop over each pixel in our image.
