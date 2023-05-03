@@ -88,21 +88,18 @@ RayTracer::Scene::Scene(RayTracer::Parsing_OBJ parsing) {
 bool RayTracer::Scene::Render(RayTracer::Image &outputImage) {
     int xSize = outputImage.GetWidth();
     int ySize = outputImage.GetHeight();
-    // Loop over each pixel in our image.
+
     RayTracer::Ray cameraRay;
     Vector3D intPoint(3);
     Vector3D localNormal(3);
     Vector3D localColor(3);
-    double xFact = 1.0 / (static_cast<double>(xSize) / 2.0);
-    double yFact = 1.0 / (static_cast<double>(ySize) / 2.0);
+    double xFact = 1.0 / (xSize / 2.0);
+    double yFact = 1.0 / (ySize / 2.0);
 
     for (int x = 0; x < xSize; ++x) {
         for (int y = 0; y < ySize; ++y) {
-            // Normalize the x and y coordinates.
-            double normX = (static_cast<double>(x) * xFact) - 1.0;
-            double normY = (static_cast<double>(y) * yFact) - 1.0;
-
-            // Generate the ray for this pixel.
+            double normX = x * xFact - 1.0;
+            double normY = y * yFact - 1.0;
             m_camera.GenerateRay(normX, normY, cameraRay);
 
             // Test for intersections with all objects in the scene.

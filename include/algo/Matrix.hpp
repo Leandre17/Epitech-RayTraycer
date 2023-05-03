@@ -23,22 +23,16 @@ public:
     Matrix(int nRows, int nCols, const std::vector<double>& inputData);
     ~Matrix() = default;
 
-    // Configuration methods.
     bool Resize(int numRows, int numCols);
     void SetToIdentity();
-
-    // Element access methods.
     double GetElement(int row, int col) const;
     double GetElement(int elem) const;
     void SetElement(int row, int col, double elementValue);
     int GetNumRows() const;
     int GetNumCols() const;
 
-    // Compute matrix inverse.
     void Inverse();
     bool operator==(const Matrix& rhs);
-
-    // Overload the assignment operator.
     Matrix operator=(const Matrix& rhs);
 
     friend Matrix operator*(const Matrix& lhs, const Matrix& rhs);
