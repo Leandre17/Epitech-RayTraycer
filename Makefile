@@ -23,13 +23,14 @@ SRC =	src/main.cpp \
 	src/object/Cylindre.cpp	\
 	src/object/Cone.cpp	\
 	src/object/Transform.cpp	\
+	src/design_patern/Factory.cpp	\
 	${SRC_PARSING}
 
 NAME = raytracer
 
 CXXFLAGS	=	-Wall -Wextra -std=c++20 -lconfig++
 
-CPPFLAGS	= -I ./include -I ./include/image -I ./include/algo -I ./include/camera -I ./include/object -I ./include/light -I ./include/parsing
+CPPFLAGS	= -I ./include -I ./include/image -I ./include/algo -I ./include/camera -I ./include/design_patern -I ./include/object -I ./include/light -I ./include/parsing
 
 OBJ	=	$(SRC:.cpp=.o)
 
