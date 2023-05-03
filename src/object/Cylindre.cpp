@@ -7,7 +7,6 @@
 
 #include "Cylindre.hpp"
 
-// The function to test for intersections.
 bool RayTracer::Cylinder::TestIntersection(const RayTracer::Ray &castRay, Vector3D &intPoint, Vector3D &localNormal, Vector3D &localColor) {
     // Copy the ray and apply the backwards transform.
     RayTracer::Ray bckRay = m_transformMatrix.Apply(castRay, RayTracer::BACKWARD);

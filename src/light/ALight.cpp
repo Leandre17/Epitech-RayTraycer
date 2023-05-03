@@ -9,7 +9,7 @@
 
 // Function to compute illumination.
 bool RayTracer::ALight::ComputeIllumination(const Vector3D &, const Vector3D &,
-                                            const std::vector<std::unique_ptr<RayTracer::AObject>> &,
-                                            const std::unique_ptr<RayTracer::AObject> &, Vector3D &, double &) {
+                                            const std::vector<std::unique_ptr<RayTracer::IObject>> &,
+                                            const std::unique_ptr<RayTracer::IObject> &, Vector3D &, double &) {
     return false;
 }

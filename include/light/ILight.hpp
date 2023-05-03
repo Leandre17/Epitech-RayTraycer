@@ -17,8 +17,8 @@ class ILight {
 public:
     virtual ~ILight() = default;
     virtual bool ComputeIllumination(const Vector3D &intPoint, const Vector3D &localNormal,
-                                     const std::vector<std::unique_ptr<RayTracer::AObject>> &objectList,
-                                     const std::unique_ptr<RayTracer::AObject> &currentObject, Vector3D &color,
+                                     const std::vector<std::unique_ptr<RayTracer::IObject>> &objectList,
+                                     const std::unique_ptr<RayTracer::IObject> &currentObject, Vector3D &color,
                                      double &intensity) = 0;
 
 public:
@@ -34,8 +34,8 @@ public:
 
     // Function to compute illumination contribution.
     virtual bool ComputeIllumination(const Vector3D &intPoint, const Vector3D &localNormal,
-                                     const std::vector<std::unique_ptr<RayTracer::AObject>> &objectList,
-                                     const std::unique_ptr<RayTracer::AObject> &currentObject, Vector3D &color,
+                                     const std::vector<std::unique_ptr<RayTracer::IObject>> &objectList,
+                                     const std::unique_ptr<RayTracer::IObject> &currentObject, Vector3D &color,
                                      double &intensity);
 };
 } // namespace RayTracer

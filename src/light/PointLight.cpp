@@ -14,8 +14,8 @@ RayTracer::PointLight::PointLight() {
 
 // Function to compute illumination.
 bool RayTracer::PointLight::ComputeIllumination(const Vector3D &intPoint, const Vector3D &localNormal,
-                                                const std::vector<std::unique_ptr<RayTracer::AObject>> &objectList,
-                                                const std::unique_ptr<RayTracer::AObject> &currentObject,
+                                                const std::vector<std::unique_ptr<RayTracer::IObject>> &objectList,
+                                                const std::unique_ptr<RayTracer::IObject> &currentObject,
                                                 Vector3D &color, double &intensity)
 {
     Vector3D poi{3};

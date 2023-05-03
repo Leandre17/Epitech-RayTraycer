@@ -6,6 +6,7 @@
 */
 
 #include "Scene.hpp"
+#include "Factory.hpp"
 
 RayTracer::Scene::Scene(RayTracer::Parsing_OBJ parsing) {
     // Configure the camera.
@@ -20,7 +21,7 @@ RayTracer::Scene::Scene(RayTracer::Parsing_OBJ parsing) {
     // Construct all spheres
     int number_spheres = parsing.m_primitives_nbSpheres;
     for (int i = 0; i < number_spheres; i++) {
-        m_objectList.push_back(std::make_unique<RayTracer::Sphere>(RayTracer::Sphere()));
+        m_objectList.push_back(std::move(RayTracer::Factory::CreateObject(RayTracer::OBJECTTYPE::SPHERE)));
         m_objectList.at(i)->m_baseColor =
             Vector3D{std::vector<double>{parsing.m_primitives_tab_spheres[i][4], parsing.m_primitives_tab_spheres[i][5],
                                          parsing.m_primitives_tab_spheres[i][6]}};
@@ -29,7 +30,7 @@ RayTracer::Scene::Scene(RayTracer::Parsing_OBJ parsing) {
     // Construct all planes
     int number_planes = parsing.m_primitives_nbPlanes;
     for (int i = 0; i < number_planes; i++) {
-        m_objectList.push_back(std::make_unique<RayTracer::Plane>(RayTracer::Plane()));
+        m_objectList.push_back(std::move(RayTracer::Factory::CreateObject(RayTracer::OBJECTTYPE::PLANE)));
         m_objectList.at(number_spheres + i)->m_baseColor =
             Vector3D{std::vector<double>{parsing.m_primitives_tab_planes[i][2], parsing.m_primitives_tab_planes[i][3],
                                          parsing.m_primitives_tab_planes[i][4]}};
@@ -52,7 +53,7 @@ RayTracer::Scene::Scene(RayTracer::Parsing_OBJ parsing) {
                                          parsing.m_primitives_tab_spheres[i][9]}});
         m_objectList.at(i)->SetTransformMatrix(sphereMatrix);
     }
-    m_objectList.push_back(std::make_unique<RayTracer::Cone>(RayTracer::Cone()));
+    m_objectList.push_back(std::move(RayTracer::Factory::CreateObject(RayTracer::OBJECTTYPE::CONE)));
     m_objectList.at(number_planes + number_spheres);
     RayTracer::Transform sphereMatrix;
     sphereMatrix.SetTransform(Vector3D{std::vector<double>{1.5, 0.0, 0.0}},
@@ -61,7 +62,7 @@ RayTracer::Scene::Scene(RayTracer::Parsing_OBJ parsing) {
     m_objectList.at(number_planes + number_spheres)->SetTransformMatrix(sphereMatrix);
     m_objectList.at(number_planes + number_spheres)->m_baseColor = Vector3D{std::vector<double>{1, 0.1, 0.1}};
 
-    m_objectList.push_back(std::make_unique<RayTracer::Cylinder>(RayTracer::Cylinder()));
+    m_objectList.push_back(RayTracer::Factory::CreateObject(RayTracer::OBJECTTYPE::CYLINDRE));
     m_objectList.at(number_planes + number_spheres + 1);
     sphereMatrix.SetTransform(Vector3D{std::vector<double>{-2, -1.0, 0.0}},
         Vector3D{std::vector<double>{0.0, 0.0, 0.0}},
@@ -107,7 +108,7 @@ bool RayTracer::Scene::Render(RayTracer::Image &outputImage) {
             m_camera.GenerateRay(normX, normY, cameraRay);
 
             // Test for intersections with all objects in the scene.
-            std::unique_ptr<RayTracer::AObject> closestObject = std::make_unique<RayTracer::AObject>();
+            std::unique_ptr<RayTracer::IObject> closestObject = std::make_unique<RayTracer::AObject>();
             Vector3D closestIntPoint{3};
             Vector3D closestLocalNormal{3};
             Vector3D closestLocalColor{3};
@@ -124,8 +125,6 @@ bool RayTracer::Scene::Render(RayTracer::Image &outputImage) {
                     // Compute the distance between the camera and the point of intersection.
                     double dist = (intPoint - cameraRay.point1).norm();
 
-                    /* If this object is closer to the camera than any one that we have
-                        seen before, then store a reference to it. */
                     if (dist < minDist) {
                         minDist = dist;
                         closestObject->m_baseColor = m_objectList[i]->m_baseColor;
@@ -136,9 +135,6 @@ bool RayTracer::Scene::Render(RayTracer::Image &outputImage) {
                     }
                 }
             }
-
-            /* Compute the illumination for the closest object, assuming that there
-                was a valid intersection. */
             if (intersectionFound) {
                 // Compute the intensity of illumination.
                 double intensity = 1;
