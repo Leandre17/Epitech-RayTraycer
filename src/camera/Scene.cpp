@@ -7,6 +7,8 @@
 
 #include "Scene.hpp"
 #include "Factory.hpp"
+#include "Builder.hpp"
+#include "Director.hpp"
 
 RayTracer::Scene::Scene(RayTracer::Parsing_OBJ parsing) {
     // Configure the camera.
@@ -83,6 +85,11 @@ RayTracer::Scene::Scene(RayTracer::Parsing_OBJ parsing) {
     // m_lightList.push_back(std::make_unique<RayTracer::PointLight>(RayTracer::PointLight()));
     // m_lightList.at(2)->m_location = Vector3D{std::vector<double>{0.0, -10.0, -5.0}};
     // m_lightList.at(2)->m_color = Vector3D{std::vector<double>{0.0, 1.0, 0.0}};
+
+    // Design patern BUILDER
+    RayTracer::Builder::IceCreamBuilder iceCream;
+    RayTracer::Director director(iceCream);
+    director.createIceCream();
 }
 
 bool RayTracer::Scene::Render(RayTracer::Image &outputImage) {

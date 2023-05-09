@@ -24,6 +24,8 @@ SRC =	src/main.cpp \
 	src/object/Cone.cpp	\
 	src/object/Transform.cpp	\
 	src/design_patern/Factory.cpp	\
+	src/design_patern/Builder.cpp		\
+	src/design_patern/Director.cpp		\
 	${SRC_PARSING}
 
 NAME = raytracer
