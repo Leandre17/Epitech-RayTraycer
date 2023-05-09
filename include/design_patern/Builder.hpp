@@ -8,6 +8,8 @@
 #pragma once
 
 #include "IObject.hpp"
+#include "Factory.hpp"
+#include "Scene.hpp"
 #include <memory>
 #include <vector>
 
@@ -21,7 +23,7 @@ namespace RayTracer {
                 IceCreamBuilder(IceCreamBuilder &&iceCreamBuilder);
                 IceCreamBuilder &operator=(const IceCreamBuilder &iceCreamBuilder);
                 IceCreamBuilder &operator=(IceCreamBuilder &&iceCreamBuilder);
-                void BuildIceCream();
+                void BuildIceCream(RayTracer::Scene &scene);
                 void BuildSphere();
                 void BuildCone();
                 void render();

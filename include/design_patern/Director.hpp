@@ -8,6 +8,7 @@
 #pragma once
 
 #include "Builder.hpp"
+#include "Scene.hpp"
 
 namespace RayTracer {
     class Director {
@@ -18,7 +19,7 @@ namespace RayTracer {
             Director(Director &&other);
             Director &operator=(const Director &other);
             Director &operator=(Director &&other);
-            void createIceCream();
+            void createIceCream(RayTracer::Scene &scene);
 
         protected:
         private:

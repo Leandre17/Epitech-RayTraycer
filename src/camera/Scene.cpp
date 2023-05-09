@@ -73,6 +73,12 @@ RayTracer::Scene::Scene(RayTracer::Parsing_OBJ parsing) {
     m_objectList.at(number_planes + number_spheres + 1)->m_baseColor = Vector3D{std::vector<double>{1.0, 1.0, 0.1}};
 
 
+    // Design patern BUILDER
+    // RayTracer::Builder::IceCreamBuilder iceCream;
+    // RayTracer::Director director(iceCream);
+    // director.createIceCream(*this);
+    // number_spheres += 2;
+
     // Construct a test light.
     // m_lightList.push_back(std::make_unique<RayTracer::PointLight>(RayTracer::PointLight()));
     // m_lightList.at(0)->m_location = Vector3D{std::vector<double>{5.0, -10.0, -5.0}};
@@ -85,11 +91,6 @@ RayTracer::Scene::Scene(RayTracer::Parsing_OBJ parsing) {
     // m_lightList.push_back(std::make_unique<RayTracer::PointLight>(RayTracer::PointLight()));
     // m_lightList.at(2)->m_location = Vector3D{std::vector<double>{0.0, -10.0, -5.0}};
     // m_lightList.at(2)->m_color = Vector3D{std::vector<double>{0.0, 1.0, 0.0}};
-
-    // Design patern BUILDER
-    RayTracer::Builder::IceCreamBuilder iceCream;
-    RayTracer::Director director(iceCream);
-    director.createIceCream();
 }
 
 bool RayTracer::Scene::Render(RayTracer::Image &outputImage) {

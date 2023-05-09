@@ -24,10 +24,10 @@ namespace RayTracer {
         public:
             Scene(RayTracer::Parsing_OBJ parsing);
             bool Render(RayTracer::Image &outputImage);
-        private:
             RayTracer::Camera m_camera;
             std::vector<std::unique_ptr<RayTracer::IObject>> m_objectList;
             std::vector<std::unique_ptr<RayTracer::ILight>> m_lightList;
+        private:
     };
 } // namespace RayTracer
 
