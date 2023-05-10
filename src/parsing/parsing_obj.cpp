@@ -50,6 +50,7 @@ int RayTracer::Parsing_OBJ::parse_camera()
         std::cerr << "Erreur : " << e.what() << std::endl;
         exit(84);
     }
+    return 0;
 }
 
 int RayTracer::Parsing_OBJ::parse_primitives()
@@ -100,6 +101,7 @@ int RayTracer::Parsing_OBJ::parse_primitives()
         std::cerr << "Erreur : " << e.what() << std::endl;
         exit(84);
     }
+    return 0;
 }
 
 int RayTracer::Parsing_OBJ::parse_lights()
@@ -135,6 +137,7 @@ int RayTracer::Parsing_OBJ::parse_lights()
         std::cerr << "Erreur : " << e.what() << std::endl;
         exit(84);
     }
+    return 0;
 }
 
 int RayTracer::Parsing_OBJ::print_tab_int(std::vector<std::vector<int>> tab) {
@@ -155,6 +158,30 @@ int RayTracer::Parsing_OBJ::print_tab_double(std::vector<std::vector<double>> ta
         std::cout << std::endl;
     }
     return (0);
+}
+
+int RayTracer::Parsing_OBJ::parse_icecream()
+{
+    try {
+        const libconfig::Setting& primitives = m_cfg.lookup("primitives");
+        const libconfig::Setting& icecream = primitives["icecream"];
+        int nbIcecream = icecream.getLength();
+        m_primitives_nbIcecream = nbIcecream;
+        for(int i = 0; i < nbIcecream; ++i)
+        {
+            const libconfig::Setting& sphere = icecream[i];
+            double x, y, z;
+            sphere.lookupValue("x", x);
+            sphere.lookupValue("y", y);
+            sphere.lookupValue("z", z);
+            m_primitives_tab_icecream.push_back({x, y, z});
+        }
+    }
+    catch(const libconfig::SettingNotFoundException& e) {
+        std::cerr << "Erreur : " << e.what() << std::endl;
+        exit(84);
+    }
+    return 0;
 }
 
 int RayTracer::Parsing_OBJ::print_informations()
@@ -185,6 +212,7 @@ int RayTracer::Parsing_OBJ::print_informations()
     print_tab_int(m_lights_tab_points);
     print_tab_int(m_lights_tab_directional);
     std::cout << std::endl;
+    return 0;
 }
 
 int RayTracer::Parsing_OBJ::manage_parsing()
@@ -192,5 +220,7 @@ int RayTracer::Parsing_OBJ::manage_parsing()
     parse_camera();
     parse_primitives();
     parse_lights();
+    parse_icecream();
     // print_informations();
+    return 0;
 }

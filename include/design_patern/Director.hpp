@@ -19,7 +19,7 @@ namespace RayTracer {
             Director(Director &&other);
             Director &operator=(const Director &other);
             Director &operator=(Director &&other);
-            void createIceCream(RayTracer::Scene &scene);
+            void createIceCream(RayTracer::Scene &scene, RayTracer::Parsing_OBJ &parsing);
 
         protected:
         private:

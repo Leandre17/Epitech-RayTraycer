@@ -38,7 +38,7 @@ RayTracer::Director &RayTracer::Director::operator=(RayTracer::Director &&other)
     return *this;
 }
 
-void RayTracer::Director::createIceCream(RayTracer::Scene &scene)
+void RayTracer::Director::createIceCream(RayTracer::Scene &scene, RayTracer::Parsing_OBJ &parsing)
 {
-    m_builder.BuildIceCream(scene);
+    m_builder.BuildIceCream(scene, parsing);
 }

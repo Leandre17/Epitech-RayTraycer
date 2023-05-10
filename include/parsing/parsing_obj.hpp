@@ -28,6 +28,7 @@ namespace RayTracer {
             int parse_camera(void);
             int parse_primitives(void);
             int parse_lights(void);
+            int parse_icecream(void);
 
             int print_informations(void);
             int print_tab_int(std::vector<tab_int> tab);
@@ -58,6 +59,9 @@ namespace RayTracer {
             int m_lights_nb_directional;
             std::vector<tab_int> m_lights_tab_points;
             std::vector<tab_int> m_lights_tab_directional;
+            //icecream
+            int m_primitives_nbIcecream;
+            std::vector<tab_double> m_primitives_tab_icecream;
         protected:
         private:
     };

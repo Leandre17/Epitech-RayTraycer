@@ -23,7 +23,7 @@ namespace RayTracer {
                 IceCreamBuilder(IceCreamBuilder &&iceCreamBuilder);
                 IceCreamBuilder &operator=(const IceCreamBuilder &iceCreamBuilder);
                 IceCreamBuilder &operator=(IceCreamBuilder &&iceCreamBuilder);
-                void BuildIceCream(RayTracer::Scene &scene);
+                void BuildIceCream(RayTracer::Scene &scene, RayTracer::Parsing_OBJ &parsing);
                 void BuildSphere();
                 void BuildCone();
                 void render();

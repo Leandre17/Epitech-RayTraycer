@@ -74,10 +74,9 @@ RayTracer::Scene::Scene(RayTracer::Parsing_OBJ parsing) {
 
 
     // Design patern BUILDER
-    // RayTracer::Builder::IceCreamBuilder iceCream;
-    // RayTracer::Director director(iceCream);
-    // director.createIceCream(*this);
-    // number_spheres += 2;
+    RayTracer::Builder::IceCreamBuilder iceCream;
+    RayTracer::Director director(iceCream);
+    director.createIceCream(*this, parsing);
 
     // Construct a test light.
     // m_lightList.push_back(std::make_unique<RayTracer::PointLight>(RayTracer::PointLight()));

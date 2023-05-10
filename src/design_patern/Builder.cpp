@@ -58,36 +58,59 @@ int &RayTracer::Builder::IceCreamBuilder::getObjects()
     return this->m_objects;
 }
 
-void RayTracer::Builder::IceCreamBuilder::BuildIceCream(RayTracer::Scene &scene)
+void RayTracer::Builder::IceCreamBuilder::BuildIceCream(RayTracer::Scene &scene, RayTracer::Parsing_OBJ &parsing)
 {
     BuildSphere();
     BuildSphere();
     BuildCone();
     render();
 
-    int number_sphere_existing = scene.m_objectList.size();
+    // Construct icecream
+    int number_all_before = scene.m_objectList.size();
+    int number_icecream = parsing.m_primitives_nbIcecream;
+    for (int i = 0; i < number_icecream; ++i) {
+        // Add sphere 1
+        scene.m_objectList.push_back(std::move(RayTracer::Factory::CreateObject(RayTracer::OBJECTTYPE::SPHERE)));
+        scene.m_objectList.at(number_all_before + i * 2)->m_baseColor =
+            Vector3D{std::vector<double>{1, 0.5, 0.5}};
 
-    scene.m_objectList.push_back(std::move(RayTracer::Factory::CreateObject(RayTracer::OBJECTTYPE::SPHERE)));
-    // scene.m_objectList.push_back(std::move(RayTracer::Factory::CreateObject(RayTracer::OBJECTTYPE::SPHERE)));
-    scene.m_objectList.at(number_sphere_existing - 1)->m_baseColor = Vector3D{std::vector<double>{0.4, 0.3, 0.7}};
-    // scene.m_objectList.at(number_sphere_existing)->m_baseColor = Vector3D{std::vector<double>{0.5, 0.2, 0.9}};
+        // Add sphere 2
+        scene.m_objectList.push_back(std::move(RayTracer::Factory::CreateObject(RayTracer::OBJECTTYPE::SPHERE)));
+        scene.m_objectList.at(number_all_before + i * 2 + 1)->m_baseColor =
+            Vector3D{std::vector<double>{0.5, 0.5, 1}};
 
-    RayTracer::Transform planeMatrix;
-    planeMatrix.SetTransform(
-            Vector3D{std::vector<double>{0.0, 0.0,
-                                         0.0}},
-            Vector3D{std::vector<double>{0, 0.0, 0.0}},
-            Vector3D{std::vector<double>{0.73, 0.5,
-                                         0.75}});
-    scene.m_objectList.at(number_sphere_existing - 1)->SetTransformMatrix(planeMatrix);
+        // Add cone
+        scene.m_objectList.push_back(std::move(RayTracer::Factory::CreateObject(RayTracer::OBJECTTYPE::CONE)));
+        scene.m_objectList.at(number_all_before + i * 2 + 2)->m_baseColor =
+            Vector3D{std::vector<double>{0.5, 1, 0.5}};
+    }
 
-    // // Modify the spheres.
-    // RayTracer::Transform sphereMatrix2;
-    // sphereMatrix2.SetTransform(
-    //         Vector3D{std::vector<double>{0.0, 0.0,
-    //                                      0.0}},
-    //         Vector3D{std::vector<double>{0, 0.0, 0.0}},
-    //         Vector3D{std::vector<double>{0.63, 0.5,
-    //                                      0.85}});
-    // scene.m_objectList.at(number_sphere_existing)->SetTransformMatrix(sphereMatrix2);
+    // Modify the icecream.
+    for (int i = 0; i < number_icecream; i++) {
+        // Set transformations for sphere 1
+        RayTracer::Transform sphere1Matrix;
+        sphere1Matrix.SetTransform(
+            Vector3D{std::vector<double>{1, 0.0, 0.0}},
+            Vector3D{std::vector<double>{0.0, 0.0, 0.0}},
+            Vector3D{std::vector<double>{0.5, 0.5,
+                                        0.5}});
+        scene.m_objectList.at(i * 3 + number_all_before)->SetTransformMatrix(sphere1Matrix);
+
+        // Set transformations for sphere 2
+        RayTracer::Transform sphere2Matrix;
+        sphere2Matrix.SetTransform(
+            Vector3D{std::vector<double>{2, 0.0, 0.0}},
+            Vector3D{std::vector<double>{0.0, 0.0, 0.0}},
+            Vector3D{std::vector<double>{parsing.m_primitives_tab_spheres[i][7], parsing.m_primitives_tab_spheres[i][8],
+                                        parsing.m_primitives_tab_spheres[i][9]}});
+        scene.m_objectList.at(i * 3 + number_all_before + 1)->SetTransformMatrix(sphere2Matrix);
+
+        // Set transformations for cone
+        RayTracer::Transform coneMatrix;
+        coneMatrix.SetTransform(Vector3D{std::vector<double>{1, 0.0, 0.0}},
+                Vector3D{std::vector<double>{0, 15.5, 0}},
+                Vector3D{std::vector<double>{1.0, 1.0, 1.0}});
+        scene.m_objectList.at(i * 3 + number_all_before + 2)->SetTransformMatrix(coneMatrix);
+    }
+
 }
