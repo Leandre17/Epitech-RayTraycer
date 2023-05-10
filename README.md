@@ -1,5 +1,6 @@
 # RayTracer
-Projet EPITECH de 2eme année : Réaliser un programme capable de charger des libraries dynamiques avec un niveau d'abstraction. Jeux réalisé : Snake / Nibbler
+Projet EPITECH de 2eme année : Ray tracing is a technique used to generate realistic digital images by simulating the inverse path of light.
+Your goal is to create a program able to generate an image from a file describing the scene.
 
 ## Requirements
 
@@ -20,16 +21,10 @@ make
 ### Graphic
 - SDL
 
-### Game
-- Nibbler
-- Snake
-
 ## Usage
 ```bash
 USAGE:
-  ./raytracer config_file
-  
-  
+  ./raytracer "config_file_path"
 
 Leaders of projects:
 
