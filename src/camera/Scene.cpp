@@ -55,23 +55,31 @@ RayTracer::Scene::Scene(RayTracer::Parsing_OBJ parsing) {
                                          parsing.m_primitives_tab_spheres[i][9]}});
         m_objectList.at(i)->SetTransformMatrix(sphereMatrix);
     }
-    m_objectList.push_back(std::move(RayTracer::Factory::CreateObject(RayTracer::OBJECTTYPE::CONE)));
-    m_objectList.at(number_planes + number_spheres);
-    RayTracer::Transform sphereMatrix;
-    sphereMatrix.SetTransform(Vector3D{std::vector<double>{1.5, 0.0, 0.0}},
-        Vector3D{std::vector<double>{0.0, 0.0, 0.0}},
-        Vector3D{std::vector<double>{1.0, 1.0, 1.0}});
-    m_objectList.at(number_planes + number_spheres)->SetTransformMatrix(sphereMatrix);
-    m_objectList.at(number_planes + number_spheres)->m_baseColor = Vector3D{std::vector<double>{1, 0.1, 0.1}};
 
-    m_objectList.push_back(RayTracer::Factory::CreateObject(RayTracer::OBJECTTYPE::CYLINDRE));
-    m_objectList.at(number_planes + number_spheres + 1);
-    sphereMatrix.SetTransform(Vector3D{std::vector<double>{-2, -1.0, 0.0}},
-        Vector3D{std::vector<double>{0.0, 0.0, 0.0}},
-        Vector3D{std::vector<double>{.5, .5, .5}});
-    m_objectList.at(number_planes + number_spheres + 1)->SetTransformMatrix(sphereMatrix);
-    m_objectList.at(number_planes + number_spheres + 1)->m_baseColor = Vector3D{std::vector<double>{1.0, 1.0, 0.1}};
+    // construct and modify cones / cylindres
+    int number_cones = parsing.m_primitives_nbCones;
+    int number_cylindres = parsing.m_primitives_nbCylindre;
+    for (int i = 0; i < number_cones; i++) {
+        m_objectList.push_back(std::move(RayTracer::Factory::CreateObject(RayTracer::OBJECTTYPE::CONE)));
+        m_objectList.at(number_planes + number_spheres + i);
+        RayTracer::Transform sphereMatrix;
+        sphereMatrix.SetTransform(Vector3D{std::vector<double>{parsing.m_primitives_tab_cones[i][0], parsing.m_primitives_tab_cones[i][1], parsing.m_primitives_tab_cones[i][2]}},
+            Vector3D{std::vector<double>{0.0, 0.0, 0.0}},
+            Vector3D{std::vector<double>{1.0, 1.0, 1.0}});
+        m_objectList.at(number_planes + number_spheres)->SetTransformMatrix(sphereMatrix);
+        m_objectList.at(number_planes + number_spheres)->m_baseColor = Vector3D{std::vector<double>{parsing.m_primitives_tab_cones[i][3], parsing.m_primitives_tab_cones[i][4], parsing.m_primitives_tab_cones[i][5]}};
+    }
 
+    for (int i = 0; i < number_cylindres; i++) {
+        m_objectList.push_back(RayTracer::Factory::CreateObject(RayTracer::OBJECTTYPE::CYLINDRE));
+        m_objectList.at(number_planes + number_spheres + 1);
+        RayTracer::Transform cylindreMatrix;
+        cylindreMatrix.SetTransform(Vector3D{std::vector<double>{parsing.m_primitives_tab_cylindres[i][0], parsing.m_primitives_tab_cylindres[i][1], parsing.m_primitives_tab_cylindres[i][2]}},
+            Vector3D{std::vector<double>{0.0, 0.0, 0.0}},
+            Vector3D{std::vector<double>{.5, .5, .5}});
+        m_objectList.at(number_planes + number_spheres + 1)->SetTransformMatrix(cylindreMatrix);
+        m_objectList.at(number_planes + number_spheres + 1)->m_baseColor = Vector3D{std::vector<double>{parsing.m_primitives_tab_cylindres[i][3], parsing.m_primitives_tab_cylindres[i][4], parsing.m_primitives_tab_cylindres[i][5]}};
+    }
 
     // Design patern BUILDER
     RayTracer::Builder::IceCreamBuilder iceCream;

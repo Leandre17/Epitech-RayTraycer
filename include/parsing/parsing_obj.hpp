@@ -50,8 +50,12 @@ namespace RayTracer {
             //primitives
             int m_primitives_nbSpheres;
             int m_primitives_nbPlanes;
+            int m_primitives_nbCones;
+            int m_primitives_nbCylindre;
             std::vector<tab_double> m_primitives_tab_spheres;
             std::vector<tab_double> m_primitives_tab_planes;
+            std::vector<tab_double> m_primitives_tab_cones;
+            std::vector<tab_double> m_primitives_tab_cylindres;
             //lights
             float m_lights_ambient;
             float m_lights_diffuse;

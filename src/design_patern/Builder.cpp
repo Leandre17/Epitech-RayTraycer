@@ -82,7 +82,7 @@ void RayTracer::Builder::IceCreamBuilder::BuildIceCream(RayTracer::Scene &scene,
         // Add cone
         scene.m_objectList.push_back(std::move(RayTracer::Factory::CreateObject(RayTracer::OBJECTTYPE::CONE)));
         scene.m_objectList.at(number_all_before + i * 2 + 2)->m_baseColor =
-            Vector3D{std::vector<double>{0.5, 1, 0.5}};
+            Vector3D{std::vector<double>{0.97, 0.89, 0.71}};
     }
 
     // Modify the icecream.
@@ -90,7 +90,7 @@ void RayTracer::Builder::IceCreamBuilder::BuildIceCream(RayTracer::Scene &scene,
         // Set transformations for sphere 1
         RayTracer::Transform sphere1Matrix;
         sphere1Matrix.SetTransform(
-            Vector3D{std::vector<double>{1, 0.0, 0.0}},
+            Vector3D{std::vector<double>{parsing.m_primitives_tab_icecream[i][0] + 0.3, parsing.m_primitives_tab_icecream[i][1], parsing.m_primitives_tab_icecream[i][2] - 1.5}},
             Vector3D{std::vector<double>{0.0, 0.0, 0.0}},
             Vector3D{std::vector<double>{0.5, 0.5,
                                         0.5}});
@@ -99,15 +99,14 @@ void RayTracer::Builder::IceCreamBuilder::BuildIceCream(RayTracer::Scene &scene,
         // Set transformations for sphere 2
         RayTracer::Transform sphere2Matrix;
         sphere2Matrix.SetTransform(
-            Vector3D{std::vector<double>{2, 0.0, 0.0}},
+            Vector3D{std::vector<double>{parsing.m_primitives_tab_icecream[i][0] - 0.2, parsing.m_primitives_tab_icecream[i][1], parsing.m_primitives_tab_icecream[i][2] - 1}},
             Vector3D{std::vector<double>{0.0, 0.0, 0.0}},
-            Vector3D{std::vector<double>{parsing.m_primitives_tab_spheres[i][7], parsing.m_primitives_tab_spheres[i][8],
-                                        parsing.m_primitives_tab_spheres[i][9]}});
+            Vector3D{std::vector<double>{0.5, 0.5, 0.5}});
         scene.m_objectList.at(i * 3 + number_all_before + 1)->SetTransformMatrix(sphere2Matrix);
 
         // Set transformations for cone
         RayTracer::Transform coneMatrix;
-        coneMatrix.SetTransform(Vector3D{std::vector<double>{1, 0.0, 0.0}},
+        coneMatrix.SetTransform(Vector3D{std::vector<double>{parsing.m_primitives_tab_icecream[i][0], parsing.m_primitives_tab_icecream[i][1], parsing.m_primitives_tab_icecream[i][2]}},
                 Vector3D{std::vector<double>{0, 15.5, 0}},
                 Vector3D{std::vector<double>{1.0, 1.0, 1.0}});
         scene.m_objectList.at(i * 3 + number_all_before + 2)->SetTransformMatrix(coneMatrix);

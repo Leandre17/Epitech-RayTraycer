@@ -59,10 +59,16 @@ int RayTracer::Parsing_OBJ::parse_primitives()
         const libconfig::Setting& primitives = m_cfg.lookup("primitives");
         const libconfig::Setting& spheres = primitives["spheres"];
         const libconfig::Setting& planes = primitives["planes"];
+        const libconfig::Setting& cones = primitives["cones"];
+        const libconfig::Setting& cylindres = primitives["cylindre"];
         int nbSpheres = spheres.getLength();
         int nbPlanes = planes.getLength();
+        int nbCones = cones.getLength();
+        int nbCylindres = cylindres.getLength();
         m_primitives_nbSpheres = nbSpheres;
         m_primitives_nbPlanes = nbPlanes;
+        m_primitives_nbCones = nbCones;
+        m_primitives_nbCylindre = nbCylindres;
         for(int i = 0; i < nbSpheres; ++i)
         {
             const libconfig::Setting& sphere = spheres[i];
@@ -95,6 +101,34 @@ int RayTracer::Parsing_OBJ::parse_primitives()
             color.lookupValue("g", green);
             color.lookupValue("b", blue);
             m_primitives_tab_planes.push_back({axis, position, red, green, blue});
+        }
+        for(int i = 0; i < nbCones; ++i)
+        {
+            const libconfig::Setting& cone = cones[i];
+            const libconfig::Setting& color = cone["color"];
+            double red, green, blue;
+            double x, y, z;
+            cone.lookupValue("x", x);
+            cone.lookupValue("y", y);
+            cone.lookupValue("z", z);
+            color.lookupValue("r", red);
+            color.lookupValue("g", green);
+            color.lookupValue("b", blue);
+            m_primitives_tab_cones.push_back({x, y, z, red, green, blue});
+        }
+        for(int i = 0; i < nbCylindres; ++i)
+        {
+            const libconfig::Setting& cylindre = cylindres[i];
+            const libconfig::Setting& color = cylindre["color"];
+            double red, green, blue;
+            double x, y, z;
+            cylindre.lookupValue("x", x);
+            cylindre.lookupValue("y", y);
+            cylindre.lookupValue("z", z);
+            color.lookupValue("r", red);
+            color.lookupValue("g", green);
+            color.lookupValue("b", blue);
+            m_primitives_tab_cylindres.push_back({x, y, z, red, green, blue});
         }
     }
     catch(const libconfig::SettingNotFoundException& e) {
