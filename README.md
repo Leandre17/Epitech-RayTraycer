@@ -16,17 +16,11 @@ compile the project `make re`
 launch `./raytracer "config_file_path"`
 
 
-
-### Johanna Bureau
-<a href="https://github.com/Johannabureau" rel="some text"><img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="42" height="42"></a>
-<a href="https://www.linkedin.com/in/johanna-bureau-b2262b224/" rel="some text"><img src="https://content.linkedin.com/content/dam/me/business/en-us/amp/brand-site/v2/bg/LI-Bug.svg.original.svg" width="42" height="42"></a>
-
-
 <div align="center">
     <table>
         <td align="center" style="min-width: 150px; border: 2px solid; padding: 20px">
             <a href="https://github.com/RemiMaigrot">
-                <img src="https://media.licdn.com/dms/image/D4D35AQHc6aYfWPtlyA/profile-framedphoto-shrink_800_800/0/1694726141879?e=1695895200&v=beta&t=iR-PSVlwLB_UEUUnf5hIvz6SUzzqfMCfhqSFJIK51OE" width="150px;" alt="Rémi profile picture"/>
+                <img src="https://media.licdn.com/dms/image/D4E35AQH4PTmTS80CKw/profile-framedphoto-shrink_800_800/0/1649330038359?e=1695902400&v=beta&t=1rIBolYiaBSkh4lOSglT2fW4pGLiLYNxuiz5MxgWB9s" width="150px;" alt="Rémi profile picture"/>
                 <br />
                 <b>Rémi Maigrot</b>
             </a>
